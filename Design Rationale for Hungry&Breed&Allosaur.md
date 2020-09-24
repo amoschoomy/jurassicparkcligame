@@ -1,5 +1,3 @@
->>>>> Design for Hungry and Breeding Features
-___
 #  Hungry Dinosaur
 
 > To implement the feature of hungry dianosaur to allow dinosaur to feel hungry without eating food.
