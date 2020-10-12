@@ -129,6 +129,9 @@ HashMap is used here because of it's constant time operations and the use of key
 
 There should be a method called **displayItems** sold and their price that takes in no parameters and return a String.
 
+Also add another method called addItemsToVendingMachine to add items sold, takes in a Item object and integer price parameter,
+Add those key-value pair to the HashMap.
+
 pseudocode of this method
 
 ~~~
@@ -137,6 +140,8 @@ iterarte through the hashmap
     append to string key and value
 return string
 ~~~
+**Modifications to Player class**
+Add Ecopoint type attribute with initial value of 0
 
 **Meal Kit**
 
