@@ -162,25 +162,24 @@ A LaserGun class should be created that inherits the WeaponItem class. It will u
 We have to add this class to represent harvesting action by player. This class inherits the action class.
 This class have a Grass type attribute named **grass** that will be set in the constructor
 
-Then override execute method to change the grass boolean attribute to 
-harvested==true.
+Override the execute method and inside the method, call harvest method of the Grass class to harvest grass into hay.
+Then return a string detailing what is happening.
 
 Ovveride the description method to provide a String description of user action of that turn
 
-**FruitAction Class**
+**How to Pickup Fruit?**
+There is a class in PickupItemAction already, so since Fruit is an Item, we will just use PickUpItemAction class to avoid duplication
 
-The same as above but for fruit actions by Actor.
-This class have a Fruit type attribute named **fruit** that will be set in the constructor.
 
-We override the execute method to do:
+**PluckFruitAction Class**
+If Player decides to pluck fruit from Tree instead, this class should be used instead. This class will extend Action class.
+Override the execute method as follows:
 
-1) Call PickUpItemAction method of Fruit item if Player decides to pick up fruit from Ground.
 
-2) or this below if Player decides to pluck fruit from Tree instead
 ~~~
 if Math.random>0.7
     add fruit to inventory
-    change displayChar of Tree to "T"
+    remove fruit from Tree
     print string successful
 else
     print “You search the tree for fruit, but you can’t find any ripe ones.”

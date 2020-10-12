@@ -21,7 +21,7 @@ public class Tree extends Ground {
     if (age == 10) displayChar = 't';
     if (age == 20) displayChar = 'T';
     if (age >= 20 && Math.random() > 0.5) {
-      fruits.add(new Fruit());
+      addFruitToTree();
     }
     if (Math.random() >= 0.3 && !fruits.isEmpty()) {
       location.addItem(fruits.remove(0));
@@ -49,5 +49,17 @@ public class Tree extends Ground {
         && Math.random() >= 0.2) {
       location.map().at(location.x() - 3, location.y()).setGround(new Grass());
     }
+  }
+
+  public void addFruitToTree() {
+    fruits.add(new Fruit());
+  }
+
+  public void removeFruitFromTree(Fruit fruit) {
+    fruits.remove(fruit);
+  }
+
+  public ArrayList<Fruit> getFruits() {
+    return new ArrayList<>(fruits);
   }
 }
