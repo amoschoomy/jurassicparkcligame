@@ -65,17 +65,18 @@ if Math.random>=0.5
 if Math.random>=0.3 and fruit is not empty
     fruits.remove(0)
     add Fruit to gameMap location of tree
-    change displayChar of tree to "TF"
 
 if tree left or right neighbour == dirt and Math.random >0.2
     add grass to tree left or right neighbour
+if tree front or back negihbour == dirt and Math.random>0.2
+    add grass to tree front or back neighbour
 
 ~~~
 
 
 **Fruit**
 
-Create simple class named **Fruit** to represent fruit. Inherits Item class.
+Create simple class named **Fruit** to represent fruit. Inherits PortableItem class.
 
 This class have a private boolean attribute of **riped** with initial value of false.
 Create a new int attribute called **age** with initial age of 0.
