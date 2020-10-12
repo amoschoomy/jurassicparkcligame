@@ -6,8 +6,8 @@ public class Fruit extends PortableItem {
   private boolean riped = false;
   private int age = 0;
 
-  public Fruit(String name, char displayChar) {
-    super(name, displayChar);
+  public Fruit() {
+    super("Fruit", 'F');
   }
 
   @Override

@@ -11,12 +11,16 @@ The class will have another private boolean attribute named **harvested** and th
 hay as part of grass.
 This fits the principle of declaring variables in the tightest possible scope
 
-The displayChar of grass will be “g”. For hay, it will be included in the Grass class but with different displayChar which is “G”
 
 We will then override the method tick in the superclass Ground to fit in features according to the specifications.
 
 A pseudocode for the method tick in the class Grass
 
+**Hay**
+
+This is for hay class where it comes from harvesting grass. This class will extend PortableItem class
+because it is an item that can be picked up or dropped. Its display char will be 'G'.
+                                                                                                  
 ~~~
 
 if harvested

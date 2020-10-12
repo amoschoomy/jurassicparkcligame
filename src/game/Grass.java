@@ -38,4 +38,7 @@ public class Grass extends Ground {
       location.map().at(location.x() - 3, location.y()).setGround(new Grass());
     }
   }
+  public void harvest(Location location){
+    location.map().at(location.x(), location.y()).addItem(new Hay());
+  }
 }

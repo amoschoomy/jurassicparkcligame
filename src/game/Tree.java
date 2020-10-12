@@ -21,7 +21,7 @@ public class Tree extends Ground {
     if (age == 10) displayChar = 't';
     if (age == 20) displayChar = 'T';
     if (age >= 20 && Math.random() > 0.5) {
-      fruits.add(new Fruit("fruit", 'f'));
+      fruits.add(new Fruit());
     }
     if (Math.random() >= 0.3 && !fruits.isEmpty()) {
       location.addItem(fruits.remove(0));
