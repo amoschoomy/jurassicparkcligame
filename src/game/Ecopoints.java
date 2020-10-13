@@ -13,6 +13,10 @@ public class Ecopoints {
     points -= point;
   }
 
+  public int getPoints() {
+    return points;
+  }
+
   @Override
   public String toString() {
     return "Ecopoints{" + "points=" + points + '}';
