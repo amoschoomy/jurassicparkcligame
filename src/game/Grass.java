@@ -5,7 +5,6 @@ import edu.monash.fit2099.engine.Location;
 
 public class Grass extends Ground {
 
-  private boolean harvested = false;
 
   public Grass() {
     super('g');

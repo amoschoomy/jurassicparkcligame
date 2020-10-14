@@ -18,7 +18,7 @@ public class Application {
 	public static void main(String[] args) {
 		World world = new World(new Display());
 
-		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Tree());
+		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Tree(),new Grass());
 		
 		List<String> map = Arrays.asList(
 		"................................................................................",
@@ -46,7 +46,24 @@ public class Application {
 		".........................................................................++++...",
 		"..........................................................................++....",
 		"................................................................................");
-		GameMap gameMap = new GameMap(groundFactory, map );
+		String[] newArray=new String[map.size()];
+    	for (int i = 0; i< map.size(); i++) {
+    	String x=map.get(i);
+    	boolean modified=false;
+			for (int j = 0; j <x.length() ; j++) {
+		  		char c=x.charAt(j);
+		  			if(c=='.'&& Math.random()>0.99){
+		  				modified=true;
+		  				char[] mapIn=x.toCharArray();
+		  				mapIn[j]='g';
+		  				String newMap=String.valueOf(mapIn);
+		  				x=newMap;
+		  				newArray[i]=newMap; }
+
+      }if (!modified) newArray[i]=x; }
+		List<String> newMap = Arrays.asList(newArray);
+
+				GameMap gameMap = new GameMap(groundFactory, newMap );
 		world.addGameMap(gameMap);
 		
 		Actor player = new Player("Player", '@', 100);

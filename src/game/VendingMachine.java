@@ -28,4 +28,8 @@ public class VendingMachine extends Item {
       throw new IllegalArgumentException("Item is not sold");
     } else return itemsSold.get(item);
   }
+
+  public HashMap<Item, Integer> getListOfItemsSold() {
+    return new HashMap<>(itemsSold);
+  }
 }
