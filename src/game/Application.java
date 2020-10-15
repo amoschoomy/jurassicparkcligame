@@ -46,31 +46,22 @@ public class Application {
 		".........................................................................++++...",
 		"..........................................................................++....",
 		"................................................................................");
-		String[] newArray=new String[map.size()];
-    	for (int i = 0; i< map.size(); i++) {
-    	String x=map.get(i);
-    	boolean modified=false;
-			for (int j = 0; j <x.length() ; j++) {
-		  		char c=x.charAt(j);
-		  			if(c=='.'&& Math.random()>0.99){
-		  				modified=true;
-		  				char[] mapIn=x.toCharArray();
-		  				mapIn[j]='g';
-		  				String newMap=String.valueOf(mapIn);
-		  				x=newMap;
-		  				newArray[i]=newMap; }
 
-      }if (!modified) newArray[i]=x; }
-		List<String> newMap = Arrays.asList(newArray);
 
-				GameMap gameMap = new GameMap(groundFactory, newMap );
+		GameMap gameMap = new GameMap(groundFactory, map );
 		world.addGameMap(gameMap);
-		
+    	for (int i = 0; i < map.size(); i++) {
+		int x=0 + (int)(Math.random() * ((map.size() - 1) + 1));
+		int y=0 + (int)(Math.random() * ((map.size() - 1) + 1));
+		if (Math.random()>0.8)
+			gameMap.at(x,y).setGround(new Grass());
+
+	}
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(9, 4));
 		// Place a pair of stegosaurs in the middle of the map
-		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur"));
-		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur"));
+		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur","adult"));
+		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur","adult"));
 		VendingMachine vm=new VendingMachine();
 		vm.addItemsToVendingMachine(new Hay(),10);
 		vm.addItemsToVendingMachine(new Fruit(),15);

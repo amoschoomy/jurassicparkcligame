@@ -22,6 +22,9 @@ public class Player extends Actor {
   @Override
   public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
     // Handle multi-turn Actions
+//    actions.add(new HarvestAction((Grass) map.locationOf(this).getGround()));
+//    actions.add(new PluckFruitAction((Tree) map.locationOf(this).getGround()));
+
     if (lastAction.getNextAction() != null) return lastAction.getNextAction();
     return menu.showMenu(this, actions, display);
   }
