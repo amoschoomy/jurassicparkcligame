@@ -2,6 +2,7 @@ package game;
 
 import java.util.Scanner;
 
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
 public class Egg extends PortableItem {
@@ -18,10 +19,18 @@ public class Egg extends PortableItem {
 	}
     this.hatchable = hatchable ; 
   }
-
+  
   @Override
   public void tick(Location currentLocation) {
     super.tick(currentLocation);
+    
+   for(Item item : currentLocation.getItems()) {
+	   //meaning that the egg is dropped to ground so current location itemList contain it
+	   if(item == this) {
+		   hatchable = true ; 
+	   }
+   }
+   
     if(hatchable) {
     	age += 1;
     }
