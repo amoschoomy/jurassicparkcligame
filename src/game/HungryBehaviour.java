@@ -3,11 +3,6 @@ package game;
 import edu.monash.fit2099.engine.*;
 
 public class HungryBehaviour extends Action implements Behaviour {
-	private Actor target;
-
-	public HungryBehaviour(Actor subject) {
-		this.target = subject;
-	}
 	
 	public boolean isFruitAround(Actor actor, GameMap map) {
 		Location currentPosition = map.locationOf(actor); 
