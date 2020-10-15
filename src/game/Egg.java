@@ -9,12 +9,12 @@ public class Egg extends PortableItem {
   private String species  ; 
   private boolean hatchable ;
 
-  public Egg(String species,boolean hatchable) throws Exception {
+  public Egg(String species,boolean hatchable) {
     super("Egg", 'E');
     if(species == "Stegosaur" || species == "Allosaur") {
 		this.species = species;
 	}else {
-		throw new Exception("Species only can be stegosaur or allosaur"); 
+		throw new IllegalArgumentException("Species only can be stegosaur or allosaur");
 	}
     this.hatchable = hatchable ; 
   }

@@ -32,7 +32,7 @@ public class VendingMachine extends Item {
   public HashMap<String, Integer> getListOfItemsSold() {
     return new HashMap<>(itemsSold);
   }
-  public Item sellItem(String item){
+  public Item sellItem(String item) {
   Item item1;
       if (item.equals("Hay")){
         item1=new Hay(); }
@@ -41,9 +41,13 @@ public class VendingMachine extends Item {
       else if (item.equals("LaserGun"))
         item1=new LaserGun();
       else if (item.equals("Carnivore"))
-      item1=new MealKit("Carnivore");
+      item1=new MealKit(FoodType.CARNIVORES);
       else if (item.equals("Herbivore"))
-        item1=new MealKit("Herbivore");
+        item1=new MealKit(FoodType.HERBIVORES);
+      else if(item.equals("Allosaur Egg"))
+          item1=new Egg("Allosaur",false);
+      else if(item.equals("Stegosour Egg"))
+          item1=new Egg("Stegosaur",false);
       else{
         item1=null;
       }
