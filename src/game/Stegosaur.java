@@ -32,6 +32,9 @@ public class Stegosaur extends Actor {
 		
 		behaviour = new WanderBehaviour();
 		
+		this.addCapability(LiveStatus.LIVE);
+		this.addCapability(FoodType.HERBIVORES); // Stegosaur is a herbivores
+		
 		if(lifeStage == "baby" || lifeStage == "adult") {
 			this.lifeStage = lifeStage;
 			if(lifeStage == "adult"){
@@ -91,6 +94,9 @@ public class Stegosaur extends Actor {
 		if(this.foodLevel >0) {
 			this.foodLevel -- ;
 		}
+		if(this.foodLevel <30) {
+			this.behaviour = new HungryBehaviour() ; 
+		}
 	
 		if(this.foodLevel == 0) {
 			this.behaviour = null ; 
@@ -120,8 +126,14 @@ public class Stegosaur extends Actor {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		
 		updateStegosaurState() ; //update stegosaur state
-		if(this.starvationLevel == 20) {
-			map.removeActor(this); // stegosaur die
+		
+		
+		if(this.starvationLevel == 20 || this.hitPoints == 0) {
+			//stegoosaur die
+			this.removeCapability(LiveStatus.LIVE);
+			this.addCapability(LiveStatus.DEAD);
+			map.locationOf(this).addItem(new Corpse()); ; 
+			map.removeActor(this);
 		}
 		
 		Action wander = behaviour.getAction(this, map);
