@@ -57,18 +57,21 @@ public class Application {
 			gameMap.at(x,y).setGround(new Grass());
 
 	}
-		Actor player = new Player("Player", '@', 100);
+		Player player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(9, 4));
+		player.setEcopointsVal(1000);
 		// Place a pair of stegosaurs in the middle of the map
 		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur","adult"));
 		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur","adult"));
 		VendingMachine vm=new VendingMachine();
-		vm.addItemsToVendingMachine(new Hay(),10);
-		vm.addItemsToVendingMachine(new Fruit(),15);
-		vm.addItemsToVendingMachine(new MealKit("Carnivore"),500);
-		vm.addItemsToVendingMachine(new MealKit("Herbivore"),100);
-		vm.addItemsToVendingMachine(new LaserGun(),500);
-		gameMap.at(11,11).addItem(vm);
+		vm.addItemsToVendingMachine("Hay",10);
+		vm.addItemsToVendingMachine("Fruit",15);
+		vm.addItemsToVendingMachine("Carnivore",500);
+		vm.addItemsToVendingMachine("Herbivore",100);
+		vm.addItemsToVendingMachine("LaserGun",500);
+		vm.addItemsToVendingMachine("Stegosour Egg",200);
+		vm.addItemsToVendingMachine("Allosaur Egg ",1000);
+		gameMap.at(12,8).addItem(vm);
 
 			
 		world.run();

@@ -5,32 +5,62 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 
+import java.util.Scanner;
+
 public class VendingMachineAction extends Action {
   private VendingMachine vendingMachine;
-  private Item selectedItem;
 
-  public VendingMachineAction(VendingMachine vendingMachine,Item selectedItem) {
+  public VendingMachineAction(VendingMachine vendingMachine) {
     this.vendingMachine = vendingMachine;
-    if(vendingMachine.getListOfItemsSold().get(selectedItem)!=null)
-        this.selectedItem=selectedItem;
-    else{
-      throw new IllegalArgumentException("Item not sold here");
-    }
   }
+
   @Override
   public String execute(Actor player, GameMap map) {
-    if (((Player) player).getEcopoints().getPoints() < vendingMachine.getItemPrice(selectedItem)) {
-      throw new IllegalArgumentException("Not enough ecopoints to buy item");
-    } else {
-      ((Player) player).getEcopoints().spend(vendingMachine.getItemPrice(selectedItem));
-      player.addItemToInventory(selectedItem);
+    boolean status = true;
+    boolean success = false;
+    String userItem = null;
+    while (status) {
+      try {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(vendingMachine.displayItems());
+        System.out.println("Which item do you want to buy?");
+        userItem = sc.nextLine();
+        if (vendingMachine.sellItem(userItem) != null) {
+          if (((Player) player).getEcopoints().getPoints()
+              < vendingMachine.getItemPrice(userItem)) {
+            throw new IllegalArgumentException("Not enough ecopoints to buy item");
+          } else {
+            ((Player) player).getEcopoints().spend(vendingMachine.getItemPrice(userItem));
+            player.addItemToInventory(vendingMachine.sellItem(userItem));
+            status = false;
+            success = true;
+          }
+        } else {
+          throw new IllegalArgumentException("Item not found!");
+        }
+      } catch (IllegalArgumentException e) {
+        status = false;
+      }
     }
-    return player.toString() + "bought " + selectedItem.toString() + " for the price of";
+    if (success) {
+      Item itemBought = vendingMachine.sellItem(userItem);
+      return player.toString()
+          + "bought "
+          + itemBought
+          + " for the price of"
+          + vendingMachine.getItemPrice(userItem);
+    } else {
+      return "No item bought";
+    }
   }
-
 
   @Override
   public String menuDescription(Actor actor) {
-    return actor.toString() + "wants to buy an item";
+    return "Buy an item from Vending Machine";
+  }
+
+  @Override
+  public String hotkey() {
+    return "V";
   }
 }
