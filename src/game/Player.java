@@ -22,14 +22,17 @@ public class Player extends Actor {
   @Override
   public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
     // Handle multi-turn Actions
-    if (map.locationOf(this).getGround() instanceof Grass){
-    actions.add(new HarvestAction((Grass) map.locationOf(this).getGround()));}
-//    actions.add(new PluckFruitAction((Tree) map.locationOf(this).getGround()));
-    for (Item i  :map.locationOf(this).getItems()) {
-      if (i instanceof VendingMachine){
+    if (map.locationOf(this).getGround() instanceof Grass) {
+      actions.add(new HarvestAction((Grass) map.locationOf(this).getGround()));
+    }
+    for (Item i : map.locationOf(this).getItems()) {
+      if (i instanceof VendingMachine) {
         actions.add(new VendingMachineAction((VendingMachine) i));
-
-    }}
+      }
+    }
+    if (map.locationOf(this).getGround() instanceof Tree) {
+      actions.add(new PluckFruitAction((Tree) map.locationOf(this).getGround()));
+    }
 
     if (lastAction.getNextAction() != null) return lastAction.getNextAction();
     return menu.showMenu(this, actions, display);
@@ -39,7 +42,7 @@ public class Player extends Actor {
     return ecopoints;
   }
 
-  public void setEcopointsVal(int val) {
+  public void gainEcopoints(int val) {
     ecopoints.gain(val);
   }
 }

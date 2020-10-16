@@ -26,6 +26,11 @@ public class PluckFruitAction extends Action {
 
   @Override
   public String menuDescription(Actor actor) {
-    return actor.toString() + "tried to pluck fruit from tree";
+    return "Try to pluck fruit from Tree";
+  }
+
+  @Override
+  public String hotkey() {
+    return "P";
   }
 }
