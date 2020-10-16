@@ -2,9 +2,18 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+/**
+ * A behaviour subclass to produce breeding ability to dinosaurs to born child.
+ *
+ */
 public class HungryBehaviour extends Action implements Behaviour {
 	
-	public boolean isFruitAround(Actor actor, GameMap map) {
+	/**
+	 * A method to check if a fruit is adjacent to the dinosaur
+	 * @param actor an Actor basically pointing the dinosaur itself
+	 * @param map the gameMap
+	 */
+	private boolean isFruitAround(Actor actor, GameMap map) {
 		Location currentPosition = map.locationOf(actor); 
 		int closeFruit = 0 ; 
 		for(Exit exit: currentPosition.getExits()) {
@@ -20,7 +29,12 @@ public class HungryBehaviour extends Action implements Behaviour {
 		return closeFruit>0 ;
 	}
 	
-	public boolean isGrassAround(Actor actor, GameMap map) {
+	/**
+	 * A method to check if grass is adjacent to the dinosaur
+	 * @param actor an Actor basically pointing the dinosaur itself
+	 * @param map the gameMap
+	 */
+	private boolean isGrassAround(Actor actor, GameMap map) {
 		Location currentPosition = map.locationOf(actor); 
 		int closeGrass = 0 ; 
 		for(Exit exit: currentPosition.getExits()) {
@@ -36,7 +50,12 @@ public class HungryBehaviour extends Action implements Behaviour {
 		return closeGrass>0 ;
 	}
 	
-	public boolean isDinosaurCorpseAround(Actor actor, GameMap map) {
+	/**
+	 * A method to check if a dinosaur is adjacent to the dinosaur
+	 * @param actor an Actor basically pointing the dinosaur itself
+	 * @param map the gameMap
+	 */
+	private boolean isDinosaurCorpseAround(Actor actor, GameMap map) {
 		Location currentPosition = map.locationOf(actor); 
 		int closeDino = 0 ; 
 		for(Exit exit: currentPosition.getExits()) {

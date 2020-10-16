@@ -1,9 +1,18 @@
 package game;
 import edu.monash.fit2099.engine.*;
 
+/**
+ * A behaviour subclass to produce hungry ability to dinosaurs to pursue food.
+ *
+ */
 public class BreedBehaviour extends Action implements Behaviour {
 	
-	public boolean isOppositeGenderAround(Actor actor,GameMap map) {
+	/**
+	 * A method to check if a suitable mating partner around the dinosaur
+	 * @param actor an Actor basically pointing the dinosaur itself
+	 * @param map the gameMap
+	 */
+	private boolean isOppositeGenderAround(Actor actor,GameMap map) {
 		Location currentPosition = map.locationOf(actor) ;
 		int oppositeGender = 0 ; 
 		for(Exit exit:currentPosition.getExits()) {
@@ -21,7 +30,12 @@ public class BreedBehaviour extends Action implements Behaviour {
 		return oppositeGender>0 ; 
 	}
 	
-	public boolean sameSpeciesDifferentGender(Actor actor , Actor partner) {
+	/**
+	 * A method to check if the partner is suitable for mating together
+	 * @param actor an Actor basically pointing the dinosaur itself
+	 * @param partner the dinosaur partner whose adjacent to him
+	 */
+	private boolean sameSpeciesDifferentGender(Actor actor , Actor partner) {
 		boolean retVal = false ;
 		if (partner!=null){
 		if((actor.hasCapability(Gender.MALE) && partner.hasCapability(Gender.FEMALE)) || (actor.hasCapability(Gender.FEMALE) && partner.hasCapability(Gender.MALE))) {
@@ -35,8 +49,13 @@ public class BreedBehaviour extends Action implements Behaviour {
 		
 	}
 	
-	//method to calculate the distance between two 
-	public int distance(Location a, Location b) {
+	
+	/**
+	 * A method to method to calculate the distance between two locations
+	 * @param a A Location here
+	 * @param b A Location there
+	 */
+	private int distance(Location a, Location b) {
 		return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
 	}
 	

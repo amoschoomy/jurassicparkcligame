@@ -11,10 +11,18 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * An action subclass to allow player to feed dinosaur and gain eco points
+ *
+ */
 public class FeedingAction extends Action {
 	private Actor feedTarget ; 
 	private ArrayList<Location> feedTargetLocationList = new ArrayList<Location>() ; 
 	
+	/**
+	 * A method to show calculate the amount of the items in the player inventory and to show the items menu for feed.
+	 * @param actor an Actor pointing the dinosaur 
+	 */
 	  private String displayItemsToFeed(Actor actor) {
 		  int egg = 0  ;
 	      int carnivoreMealkit = 0 ;

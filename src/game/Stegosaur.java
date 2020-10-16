@@ -13,7 +13,6 @@ import edu.monash.fit2099.engine.GameMap;
  *
  */
 public class Stegosaur extends Actor {
-	// Will need to change this to a collection if Stegosaur gets additional Behaviours.
 	private Behaviour behaviour;
 	private int age = 0 ; 
 	private int foodLevel ; 
@@ -26,6 +25,8 @@ public class Stegosaur extends Actor {
 	 * All Stegosaurs are represented by a 'd' and have 100 hit points.
 	 * 
 	 * @param name the name of this Stegosaur
+	 * @param lifeStage the life stage of this Stegosaur
+	 * @param owner the player who own the Stegosaur
 	 */
 	public Stegosaur(String name , String lifeStage, Player owner) {
 		super(name, 'd', 100);
@@ -59,12 +60,19 @@ public class Stegosaur extends Actor {
 		}
 	}
 	
-	public void Starving() {
+	/**
+	 * This method is used to accumulate how many turns the dinosaur is starving    
+	 */	
+	private void Starving() {
 		this.starvationLevel +=1 ; 
 	
 	}
 	
-	public void raiseFoodLevel(int x){
+	/**
+	 * This method is used to raise the food level of stegosaur 
+	 * @param x an int amount to be add into the stegosaur food level 
+	 */	
+	private void raiseFoodLevel(int x){
 		if(this.foodLevel+x<=100) {
 			this.foodLevel += x ; 
 		}else {
@@ -72,26 +80,44 @@ public class Stegosaur extends Actor {
 		}
 	}
 	
-	
+	/**
+	 * This method is used to eat grass 
+	 * @param grass a Grass object to be eaten by the stegosaur
+	 */	
 	public void grazeGrass(Grass grass) {
 		raiseFoodLevel(5) ; 
 		
 	}
 	
+	/**
+	 * This method is used to eat hay 
+	 * @param hay a Hay object to be eaten by the stegosaur
+	 */	
 	public void eatHay(Hay hay) {
 		raiseFoodLevel(20) ; 
 		
 	}
 	
+	/**
+	 * This method is used to eat fruit 
+	 * @param fruit a Fruit object to be eaten by the stegosaur
+	 */	
 	public void eatFruit(Fruit fruit) {
 		raiseFoodLevel(30) ; 
 	}
 	
+	/**
+	 * This method is used to eat herbivore mealkit 
+	 * @param mealkit a MealKit object to be eaten by the stegosaur
+	 */	
 	public void eatMealKit(MealKit mealkit) {
 		raiseFoodLevel(100);
 	}
 	
-	public boolean readyBreed() {
+	/**
+	 * This method is used to show if the stegosaur ready to breed 
+	 */	
+	private boolean readyBreed() {
 		boolean retVal = false ; 
 		if(this.foodLevel > 60) {
 			retVal = true ; 
@@ -100,7 +126,10 @@ public class Stegosaur extends Actor {
 		return retVal ; 
 	}
 	
-	public void updateStegosaurState() {
+	/**
+	 * This method is used to update the stegosaur state every turn 
+	 */	
+	private void updateStegosaurState() {
 		this.age ++ ; 
 		
 		if(this.age == 30 && this.hasCapability(LifeStage.BABY)) {
@@ -130,6 +159,9 @@ public class Stegosaur extends Actor {
 		}
 	}
 	
+	/**
+	 * This method is used to show if the stegosaur is pregnant
+	 */	
 	private boolean isPregnant() {
 		return this.hasCapability(LifeStage.PREGNANT) ; 
 	}
@@ -145,8 +177,9 @@ public class Stegosaur extends Actor {
   /**
    * Figure out what to do next.
    *
-   * <p>FIXME: Stegosaur wanders around at random, or if no suitable MoveActions are available, it
-   * just stands there. That's boring.
+   * Stegosaur wanders around at random, or if no suitable MoveActions are available, it
+   * just stands there. When foodLevel lower , stegosaur will become hungry and callout hungry behaviour action.
+   * When it it ready to breed, it will mate as well. 
    *
    * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
    */

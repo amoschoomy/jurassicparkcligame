@@ -5,6 +5,10 @@ import java.util.Scanner;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * A class to represent dinosaur egg.
+ *
+ */
 public class Egg extends PortableItem {
   private int age = 0;
   private String species  ; 

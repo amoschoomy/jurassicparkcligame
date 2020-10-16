@@ -9,8 +9,12 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * A carnivore dinosaur.
+ *
+ */
+
 public class Allosaur extends Actor {
-	// Will need to change this to a collection if Stegosaur gets additional Behaviours.
 		private Behaviour behaviour;
 		private int age = 0 ; 
 		private int foodLevel ;  // baby foodLevel start range
@@ -19,9 +23,11 @@ public class Allosaur extends Actor {
 		private int pregnantPeriodCount = 0 ; 
 		/** 
 		 * Constructor.
-		 * All Allosaurs are represented by a 'd' and have 100 hit points.
+		 * All Allosaur are represented by a 'a' and have 100 hit points.
 		 * 
 		 * @param name the name of this Allosaur
+		 * @param lifeStage the life stage of this Allosaur
+		 * @param owner the player who own the Allosaur
 		 */
 		public Allosaur(String name, String lifeStage , Player owner){
 			super(name, 'a', 100);
@@ -57,11 +63,18 @@ public class Allosaur extends Actor {
 			
 		}
 		
-		public void Starving() {
+		/**
+		 * This method is used to accumulate how many turns the allosaur is starving    
+		 */	
+		private void Starving() {
 				this.starvationLevel +=1 ;
 		} 
 		
-		public void raiseFoodLevel(int x){
+		/**
+		 * This method is used to raise the food level of allosaur 
+		 * @param x an int amount to be add into the allosaur food level 
+		 */	
+		private void raiseFoodLevel(int x){
 			if(this.foodLevel+x<=100) {
 				this.foodLevel += x ; 
 			}else {
@@ -69,15 +82,26 @@ public class Allosaur extends Actor {
 			}
 		}
 		
+		/**
+		 * This method is used to eat egg 
+		 * @param egg a Egg object to be eaten by the stegosaur
+		 */	
 		public void eatEgg(Egg egg) {
 			raiseFoodLevel(10) ; 
 		}
 		
+		/**
+		 * This method is used to eat corpse 
+		 * @param corpse a Corpse object to be eaten by the allosaur
+		 */
 		public void eatCorpse(Corpse corpse) {
 			raiseFoodLevel(50) ; 
 		}
 		
-		public boolean readyBreed() {
+		/**
+		 * This method is used to show if the allosaur ready to breed 
+		 */	
+		private boolean readyBreed() {
 			boolean retVal = false ; 
 			if(this.foodLevel > 60) {
 				retVal = true ; 
@@ -86,6 +110,11 @@ public class Allosaur extends Actor {
 			return retVal ; 
 		}
 		
+		/**
+		 * This method is used to show if there are an opponent around the allosaur
+		 * @param actor the actor which indicates the allosaur
+		 * @param map the gameMap
+		 */	
 		private boolean isOpponentAround(Actor actor, GameMap map) {
 			Location currentPosition = map.locationOf(this); 
 			int closeOpponent = 0 ; 
@@ -101,7 +130,10 @@ public class Allosaur extends Actor {
 			return closeOpponent > 0 ; 
 		}
 		
-		public void updateAllosaurState() {
+		/**
+		 * This method is used to update the allosaur state every turn 
+		 */	
+		private void updateAllosaurState() {
 			this.age ++ ; 
 			
 			if(this.age == 30 && this.hasCapability(LifeStage.BABY)) {
@@ -131,10 +163,17 @@ public class Allosaur extends Actor {
 			}
 		}
 		
+		/**
+		 * This method is used to show if the allosaur is pregnant
+		 */	
 		private boolean isPregnant() {
 			return this.hasCapability(LifeStage.PREGNANT) ; 
 		}
 		
+		/**
+		 * This method is used to eat carnivore mealkit 
+		 * @param mealkit a MealKit object to be eaten by the allosaur
+		 */	
 		public void eatMealKit(MealKit mealkit) {
 			raiseFoodLevel(100);
 		}
@@ -147,8 +186,9 @@ public class Allosaur extends Actor {
 		/**
 		 * Figure out what to do next.
 		 * 
-		 * FIXME: Stegosaur wanders around at random, or if no suitable MoveActions are available, it
-		 * just stands there.  That's boring.
+		 * Allosaur wanders around at random, or if no suitable MoveActions are available, it
+		 * just stands there. When foodLevel lower , allosaur will become hungry and callout hungry behaviour action.
+		 * When it it ready to breed, it will mate as well. It will attack stegosaur whose adjacent to him.
 		 * 
 		 * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
 		 */
