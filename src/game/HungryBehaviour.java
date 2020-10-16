@@ -115,15 +115,9 @@ public class HungryBehaviour extends Action implements Behaviour {
 			}
 			
 		}else {
-			for(Exit exit: currentPosition.getExits()) {
-				Location destination = exit.getDestination() ; 
-				if(destination.canActorEnter(actor)) {
-					//just wander cause no foods around
-					map.moveActor(actor,destination);
-					return this ; 
-				}
-			}
-			
+			// if no foods around , just wander
+			WanderBehaviour wander = new WanderBehaviour();
+			return wander.getAction(actor, map);
 			
 		}
 		return null ;  // if all place occupied and can't go 
