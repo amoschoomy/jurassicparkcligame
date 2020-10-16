@@ -147,7 +147,7 @@ public class Stegosaur extends Actor {
 			this.behaviour = new HungryBehaviour() ; 
 		}
 		
-		if(this.foodLevel > 0) {
+		if(this.foodLevel > 50) {
 			this.behaviour = new BreedBehaviour() ; 
 		}
 	

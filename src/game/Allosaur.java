@@ -151,7 +151,7 @@ public class Allosaur extends Actor {
 				this.behaviour = new HungryBehaviour() ; 
 			}
 			
-			if(this.foodLevel > 60) {
+			if(this.foodLevel > 50) {
 				this.behaviour = new BreedBehaviour() ; 
 			}
 		
