@@ -42,19 +42,22 @@ public class Egg extends PortableItem {
     }
     
     
-    if (age == 20) {
-    	currentLocation.removeItem(this);
-    
-    	if(this.species == "Stegosaur") {
-    		// it is stegosaur
-    		Stegosaur newStegosaurBaby = new Stegosaur("Stegosaur","baby" , owner) ; 
-    		currentLocation.addActor(newStegosaurBaby);
-    	}else {
-    		// it is allosaur
-    		Allosaur newAllosaurBaby = new Allosaur("Allosaur","baby" , owner) ; 
-    		currentLocation.addActor(newAllosaurBaby);
+    if (age >= 20) {
+    	if(!currentLocation.containsAnActor()) {
+    		//need to wait for no dinosaur then only hatched a new dinosaur
+    		currentLocation.removeItem(this); //
+    		if(this.species == "Stegosaur") {
+        		// it is stegosaur
+        		Stegosaur newStegosaurBaby = new Stegosaur("Stegosaur","baby" , owner) ; 
+        		currentLocation.addActor(newStegosaurBaby);
+        	}else {
+        		// it is allosaur
+        		Allosaur newAllosaurBaby = new Allosaur("Allosaur","baby" , owner) ; 
+        		currentLocation.addActor(newAllosaurBaby);
+        	}
+    		
     	}
-    	
+       	
     	
     }
     
