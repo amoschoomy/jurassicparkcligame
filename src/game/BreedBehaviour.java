@@ -3,11 +3,12 @@ import edu.monash.fit2099.engine.*;
 
 public class BreedBehaviour extends Action implements Behaviour {
 	
-	private boolean isOppositeGenderAround(Actor actor,GameMap map) {
+	public boolean isOppositeGenderAround(Actor actor,GameMap map) {
 		Location currentPosition = map.locationOf(actor) ;
 		int oppositeGender = 0 ; 
 		for(Exit exit:currentPosition.getExits()) {
-			Location destination = exit.getDestination() ; 
+			Location destination = exit.getDestination() ;
+			if (destination.containsAnActor()){
 			Actor partner = destination.getActor() ;
 			//check if they are same species and opposite gender
 			if(sameSpeciesDifferentGender(actor,partner)) {
@@ -15,26 +16,27 @@ public class BreedBehaviour extends Action implements Behaviour {
 					oppositeGender ++ ;	
 				}
 			}
-		}
+		}}
 		
 		return oppositeGender>0 ; 
 	}
 	
-	private boolean sameSpeciesDifferentGender(Actor actor , Actor partner) {
-		boolean retVal = false ; 
+	public boolean sameSpeciesDifferentGender(Actor actor , Actor partner) {
+		boolean retVal = false ;
+		if (partner!=null){
 		if((actor.hasCapability(Gender.MALE) && partner.hasCapability(Gender.FEMALE)) || (actor.hasCapability(Gender.FEMALE) && partner.hasCapability(Gender.MALE))) {
 			if(actor instanceof Stegosaur && partner instanceof Stegosaur) {
 				retVal = true ; 
 			}else if(actor instanceof Allosaur && partner instanceof Allosaur) {
 				retVal = true ; 
 			}
-		}
+		}}
 		return retVal ; 
 		
 	}
 	
 	//method to calculate the distance between two 
-	private int distance(Location a, Location b) {
+	public int distance(Location a, Location b) {
 		return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
 	}
 	
@@ -97,10 +99,9 @@ public class BreedBehaviour extends Action implements Behaviour {
 				
 			
 		}
-		
-		
-		return null ; 
-		
+
+		WanderBehaviour wander = new WanderBehaviour();
+		return wander.getAction(actor, map);
 	}
 	
 	@Override
