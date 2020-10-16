@@ -153,11 +153,11 @@ public class Allosaur extends Actor {
 				map.locationOf(this).addItem(new Corpse()); ; 
 				map.removeActor(this);
 			}
-			
+
+			try{
 			Action wander = behaviour.getAction(this, map);
-			if (wander != null)
-				return wander;
-			
+				return wander;}
+			catch (NullPointerException e){
 			return new DoNothingAction();
 		}
-}
+}}
