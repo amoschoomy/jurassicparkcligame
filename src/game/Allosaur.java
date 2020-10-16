@@ -164,7 +164,7 @@ public class Allosaur extends Actor {
 					if(destination.containsAnActor()) {
 						if(destination.getActor() instanceof Stegosaur) {
 							destination.getActor().hurt(50);
-            				System.out.println(this.toString()+" hurt"+destination.getActor().toString()+" 50 points");
+            				System.out.println(this.toString()+" hurt "+destination.getActor().toString()+"by 50 points");
 						}
 					}
 
