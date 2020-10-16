@@ -8,5 +8,6 @@ public class MealKit extends PortableItem {
     if (type != FoodType.CARNIVORES && type != FoodType.HERBIVORES)
       throw new IllegalArgumentException("Type must be Herbivore or Carnivore");
     this.type = type;
+    this.addCapability(type);
   }
 }

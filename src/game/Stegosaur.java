@@ -86,6 +86,10 @@ public class Stegosaur extends Actor {
 		raiseFoodLevel(30) ; 
 	}
 	
+	public void eatMealKit(MealKit mealkit) {
+		raiseFoodLevel(100);
+	}
+	
 	public boolean readyBreed() {
 		boolean retVal = false ; 
 		if(this.foodLevel > 60) {

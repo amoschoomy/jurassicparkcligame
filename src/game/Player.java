@@ -33,6 +33,23 @@ public class Player extends Actor {
     if (map.locationOf(this).getGround() instanceof Tree) {
       actions.add(new PluckFruitAction((Tree) map.locationOf(this).getGround()));
     }
+    
+    //check if player close to a dinosaur
+    Location currentPosition = map.locationOf(this); 
+	int closeDinosaur = 0 ; 
+	for(Exit exit: currentPosition.getExits()) {
+		Location destination = exit.getDestination() ; 
+		if(destination.containsAnActor()) {
+			if(destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Allosaur) {
+				closeDinosaur++ ; 
+			} 
+		}
+				
+	}
+	if(closeDinosaur > 0) {
+		actions.add(new FeedingAction());
+	}
+		
 
     if (lastAction.getNextAction() != null) return lastAction.getNextAction();
     return menu.showMenu(this, actions, display);

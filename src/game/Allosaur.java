@@ -115,8 +115,10 @@ public class Allosaur extends Actor {
 			return this.hasCapability(LifeStage.PREGNANT) ; 
 		}
 		
+		public void eatMealKit(MealKit mealkit) {
+			raiseFoodLevel(100);
+		}
 		
-
 		@Override
 		public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
 			return new Actions(new AttackAction(this));
