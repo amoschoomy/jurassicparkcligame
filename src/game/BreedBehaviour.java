@@ -50,6 +50,7 @@ public class BreedBehaviour extends Action implements Behaviour {
 		if(isOppositeGenderAround(actor,map)) {
 			for(Exit exit:currentPosition.getExits()) {
 				Location destination = exit.getDestination() ; 
+				if(destination.containsAnActor()) {
 				Actor partner = destination.getActor() ;
 				if(sameSpeciesDifferentGender(actor,partner)) {
 					if(actor.hasCapability(LifeStage.ADULT)&& partner.hasCapability(LifeStage.ADULT)) {
@@ -68,6 +69,7 @@ public class BreedBehaviour extends Action implements Behaviour {
 						
 						return this ;
 					}
+				}
 				}
 			}
 			

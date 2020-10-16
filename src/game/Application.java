@@ -67,6 +67,7 @@ public class Application {
     vm.addItemsToVendingMachine("Stegosour Egg", 200);
     vm.addItemsToVendingMachine("Allosaur Egg ", 1000);
     gameMap.at(12, 8).addItem(vm);
+    
 
     world.run();
   }
