@@ -163,7 +163,7 @@ public class FeedingAction extends Action {
 		
 	    //if (actor instanceof Player) {
 	    	if(feedTarget instanceof Stegosaur) {
-	    		if(selectedItem == "Hay") {
+	    		if(selectedItem.equals("Hay")) {
 	    			for(Item item: actor.getInventory()) {
 	    				if(item instanceof Hay) {
 	    					Hay hay = (Hay) item ; 
@@ -173,9 +173,10 @@ public class FeedingAction extends Action {
 	    	    			return actor.toString() + "fed the " + feedTarget.toString() +" with Hay! Gained 10 eco points";
 	    				}
 	    			}
+	    			return "Can't find Fruit inside the inventory!";
 	    			
 	    		}
-	    		if(selectedItem == "Fruit") {
+	    		if(selectedItem.equals("Fruit")) {
 	    			for(Item item: actor.getInventory()) {
 	    				if(item instanceof Fruit) {
 	    					Fruit fruit = (Fruit) item ; 
@@ -185,9 +186,10 @@ public class FeedingAction extends Action {
 	    	    			return actor.toString() + "fed the " + feedTarget.toString() +" with Fruit! Gained 15 eco points";
 	    				}
 	    			}
+	    			return "Can't find Fruit inside the inventory!";
 	    			
 	    		}
-	    		if(selectedItem == "HerbivoreMealKit") {
+	    		if(selectedItem.equals("HerbivoreMealkit")) {
 	    			//mealkit will not gain ecopoints
 	    			for(Item item: actor.getInventory()) {
 	    				if(item instanceof MealKit && item.hasCapability(FoodType.HERBIVORES)) {
@@ -198,9 +200,11 @@ public class FeedingAction extends Action {
 	    				}
 	    			}
 	    			
+	    			return "Can't find HerbivoreMealKit inside the inventory!";
+	    			
 	    		}
 	    	}else {
-	    		if(selectedItem == "CarnivoreMealKit") {
+	    		if(selectedItem.equals("CarnivoreMealkit")) {
 	    			//mealkit will not gain ecopoints
 	    			for(Item item: actor.getInventory()) {
 	    				if(item instanceof MealKit && item.hasCapability(FoodType.CARNIVORES)) {
@@ -210,9 +214,10 @@ public class FeedingAction extends Action {
 	    	    			return actor.toString() + "fed the " + feedTarget.toString() +" with Carnivore MealKit! The allosaur foodLevel become 100 now!";
 	    				}
 	    			}
+	    			return "Can't find CarnivoreMealKit inside the inventory!";
 	    			
 	    		}
-	    		if(selectedItem == "Egg") {
+	    		if(selectedItem.equals("Egg")) {
 	    			//egg will not gain ecopoints
 	    			for(Item item: actor.getInventory()) {
 	    				if(item instanceof Egg) {
@@ -222,6 +227,7 @@ public class FeedingAction extends Action {
 	    	    			return actor.toString() + "fed the " + feedTarget.toString() +" with Eggs!";
 	    				}
 	    			}
+	    			return "Can't find Egg inside the inventory!";
 	    			
 	    		}
 	    		
