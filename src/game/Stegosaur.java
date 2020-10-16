@@ -51,11 +51,12 @@ public class Stegosaur extends Actor {
 		
 		
 		if(Math.random() >0.5) {
-			this.addCapability(Gender.MALE) ; // set gender as male ; 
+			this.addCapability(Gender.MALE) ; // set gender as male ;
+      		System.out.println(Gender.MALE);
 		}else {
-			this.addCapability(Gender.FEMALE) ; // set gender as female
+			this.addCapability(Gender.FEMALE) ;// set gender as female
+      		System.out.println(Gender.FEMALE);
 		}
-
 	}
 	
 	public void Starving() {
@@ -117,7 +118,7 @@ public class Stegosaur extends Actor {
 			this.behaviour = new HungryBehaviour() ; 
 		}
 		
-		if(this.foodLevel > 60) {
+		if(this.foodLevel > 0) {
 			this.behaviour = new BreedBehaviour() ; 
 		}
 	
@@ -141,45 +142,44 @@ public class Stegosaur extends Actor {
 		return new Actions(new AttackAction(this));
 	}
 
-	/**
-	 * Figure out what to do next.
-	 * 
-	 * FIXME: Stegosaur wanders around at random, or if no suitable MoveActions are available, it
-	 * just stands there.  That's boring.
-	 * 
-	 * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
-	 */
-	@Override
-	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		
-		updateStegosaurState() ; //update stegosaur state
-		
-		if(isPregnant()) {
-			pregnantPeriodCount ++ ; 
-			if(pregnantPeriodCount == 10) {
-				//prenant after 10 turns 
-				this.removeCapability(LifeStage.PREGNANT);
-				this.removeCapability(LifeStage.ADULT);
-				Egg egg = new Egg("Stegosaur",true ,owner) ; 
-				map.locationOf(this).addItem(egg);;
-				pregnantPeriodCount = 0 ;
-			}
-		}
-		
-		
-		if(this.starvationLevel == 20 || this.hitPoints == 0) {
-			//stegoosaur die
-			this.removeCapability(LiveStatus.LIVE);
-			this.addCapability(LiveStatus.DEAD);
-			map.locationOf(this).addItem(new Corpse()); ; 
-			map.removeActor(this);
-		}
-		
-		Action wander = behaviour.getAction(this, map);
-		if (wander != null)
-			return wander;
-		
-		return new DoNothingAction();
-	}
+  /**
+   * Figure out what to do next.
+   *
+   * <p>FIXME: Stegosaur wanders around at random, or if no suitable MoveActions are available, it
+   * just stands there. That's boring.
+   *
+   * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
+   */
+  @Override
+  public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 
-}
+    updateStegosaurState(); // update stegosaur state
+
+    if (isPregnant()) {
+      pregnantPeriodCount++;
+      if (pregnantPeriodCount == 1) {
+        // prenant after 10 turns
+        this.removeCapability(LifeStage.PREGNANT);
+        this.removeCapability(LifeStage.ADULT);
+        Egg egg = new Egg("Stegosaur", true, owner);
+        map.locationOf(this).addItem(egg);
+        ;
+        pregnantPeriodCount = 0;
+      }
+    }
+
+    if (this.starvationLevel == 20 || this.hitPoints == 0) {
+      // stegoosaur die
+      this.removeCapability(LiveStatus.LIVE);
+      this.addCapability(LiveStatus.DEAD);
+      map.locationOf(this).addItem(new Corpse());
+      map.removeActor(this);
+    }
+	  try{
+		  Action wander = behaviour.getAction(this, map);
+		  return wander;}
+	  catch (NullPointerException e){
+		  return new DoNothingAction();
+	  }
+
+}}

@@ -23,8 +23,12 @@ public class VendingMachineAction extends Action {
       try {
         Scanner sc = new Scanner(System.in);
         System.out.println(vendingMachine.displayItems());
+        System.out.println("Type 'Exit' to exit and waste a turn!");
+        System.out.println("Ecopoints available: "+((Player)player).getEcopoints().getPoints());
         System.out.println("Which item do you want to buy?");
         userItem = sc.nextLine();
+        if (userItem.equals("Exit"))
+          break;
         if (vendingMachine.sellItem(userItem, (Player) player) != null) {
           if (((Player) player).getEcopoints().getPoints()
               < vendingMachine.getItemPrice(userItem)) {
@@ -32,6 +36,8 @@ public class VendingMachineAction extends Action {
           } else {
             ((Player) player).getEcopoints().spend(vendingMachine.getItemPrice(userItem));
             player.addItemToInventory(vendingMachine.sellItem(userItem, (Player) player));
+            map.locationOf(player).removeItem(vendingMachine);
+            map.locationOf(player).addItem(vendingMachine);
             status = false;
             success = true;
           }
@@ -39,15 +45,16 @@ public class VendingMachineAction extends Action {
           throw new IllegalArgumentException("Item not found!");
         }
       } catch (IllegalArgumentException e) {
-        status = false;
+        System.out.println("Sorry error occured, please try again");
+        continue;
       }
     }
     if (success) {
       Item itemBought = vendingMachine.sellItem(userItem, (Player) player);
       return player.toString()
-          + "bought "
+          + " bought "
           + itemBought
-          + " for the price of"
+          + " for the price of "
           + vendingMachine.getItemPrice(userItem);
     } else {
       return "No item bought";

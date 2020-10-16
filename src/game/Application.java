@@ -54,7 +54,7 @@ public class Application {
     }
     Player player = new Player("Player", '@', 100);
     world.addPlayer(player, gameMap.at(9, 4));
-    player.gainEcopoints(1000);
+    player.gainEcopoints(10000);
     // Place a pair of stegosaurs in the middle of the map
     gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", "adult",player));
     gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", "adult",player));
@@ -64,10 +64,15 @@ public class Application {
     vm.addItemsToVendingMachine("Carnivore", 500);
     vm.addItemsToVendingMachine("Herbivore", 100);
     vm.addItemsToVendingMachine("LaserGun", 500);
+
     vm.addItemsToVendingMachine("Stegosour Egg", 200);
     vm.addItemsToVendingMachine("Allosaur Egg ", 1000);
     gameMap.at(12, 8).addItem(vm);
     
+
+    vm.addItemsToVendingMachine("Stegosaur Egg", 200);
+    vm.addItemsToVendingMachine("Allosaur Egg", 1000);
+    gameMap.at(9, 6).addItem(vm);
 
     world.run();
   }
