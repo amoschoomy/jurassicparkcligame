@@ -141,7 +141,7 @@ public class Allosaur extends Actor {
 					//prenant after 10 turns 
 					this.removeCapability(LifeStage.PREGNANT);
 					this.removeCapability(LifeStage.ADULT);
-					Egg egg = new Egg("Egg",true , owner) ; 
+					Egg egg = new Egg("Allosaur",true , owner) ; 
 					map.locationOf(this).addItem(egg);;
 					pregnantPeriodCount = 0 ;
 				}

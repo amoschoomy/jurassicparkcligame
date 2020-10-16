@@ -156,7 +156,7 @@ public class Stegosaur extends Actor {
 				//prenant after 10 turns 
 				this.removeCapability(LifeStage.PREGNANT);
 				this.removeCapability(LifeStage.ADULT);
-				Egg egg = new Egg("Egg",true ,owner) ; 
+				Egg egg = new Egg("Stegosaur",true ,owner) ; 
 				map.locationOf(this).addItem(egg);;
 				pregnantPeriodCount = 0 ;
 			}
