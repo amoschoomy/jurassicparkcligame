@@ -25,13 +25,13 @@ public class VendingMachineAction extends Action {
         System.out.println(vendingMachine.displayItems());
         System.out.println("Which item do you want to buy?");
         userItem = sc.nextLine();
-        if (vendingMachine.sellItem(userItem) != null) {
+        if (vendingMachine.sellItem(userItem, (Player) player) != null) {
           if (((Player) player).getEcopoints().getPoints()
               < vendingMachine.getItemPrice(userItem)) {
             throw new IllegalArgumentException("Not enough ecopoints to buy item");
           } else {
             ((Player) player).getEcopoints().spend(vendingMachine.getItemPrice(userItem));
-            player.addItemToInventory(vendingMachine.sellItem(userItem));
+            player.addItemToInventory(vendingMachine.sellItem(userItem, (Player) player));
             status = false;
             success = true;
           }
@@ -43,7 +43,7 @@ public class VendingMachineAction extends Action {
       }
     }
     if (success) {
-      Item itemBought = vendingMachine.sellItem(userItem);
+      Item itemBought = vendingMachine.sellItem(userItem, (Player) player);
       return player.toString()
           + "bought "
           + itemBought
