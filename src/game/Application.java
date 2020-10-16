@@ -53,14 +53,14 @@ public class Application {
       if (Math.random() > 0.8) gameMap.at(x, y).setGround(new Grass());
     }
     Player player = new Player("Player", '@', 100);
-    Player enemy= new Player("CPU",'|',1000);
+    Player enemy = new Player("CPU", '|', 1000);
     world.addPlayer(player, gameMap.at(9, 4));
-    world.addPlayer(enemy,gameMap.at(10,4));
+    world.addPlayer(enemy, gameMap.at(10, 4));
     player.gainEcopoints(10000);
     // Place a pair of stegosaurs in the middle of the map
-    gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", "adult",player));
-    gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", "adult",player));
-    gameMap.at(31,12).addActor(new Allosaur("Allosaur","adult",enemy));
+    gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
+    gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
+    gameMap.at(31, 12).addActor(new Allosaur("Allosaur", "adult", enemy));
     VendingMachine vm = new VendingMachine();
     vm.addItemsToVendingMachine("Hay", 10);
     vm.addItemsToVendingMachine("Fruit", 15);

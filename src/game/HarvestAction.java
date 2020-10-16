@@ -4,9 +4,19 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * Harvest Action class for Harvesting Grass. Extends Action class
+ *
+ * @author Amos
+ */
 public class HarvestAction extends Action {
   private Grass grass;
 
+  /**
+   * Takes in a Grass object parameter
+   *
+   * @param grass Grass object
+   */
   public HarvestAction(Grass grass) {
     this.grass = grass;
   }

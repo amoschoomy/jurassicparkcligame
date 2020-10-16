@@ -1,5 +1,8 @@
 #**Design for Assignment 1**
 
+##NOTE PROBABILITES is now changed accordingly to the game. Check the gamefiles.
+
+
 **Grass**
 
 We have to create a new class called **Grass**. This class will inherit the abstract class Ground. 
@@ -7,8 +10,6 @@ By doing this, it will inherit the superclass methods, therefore adhering to the
 
 The class will make use of the constructor attribute of **displayChar** in the superclass Ground.
 
-The class will have another private boolean attribute named **harvested** and the initial value will be  false. This is to include
-hay as part of grass.
 This fits the principle of declaring variables in the tightest possible scope
 
 
@@ -23,16 +24,17 @@ because it is an item that can be picked up or dropped. Its display char will be
                                                                                                   
 ~~~
 
-if harvested
-       displayChar="G"
-
-if (location of grass coordinate x+1 && location of grass coordinate x+2) and Math.random>0.3
+if (location of grass coordinate x+1 && location of grass coordinate x+2) and Math.random>0.3 and 
+if (location.x() + 3 <= location.map().getXRange().max())
     add grass to location grass coordinate x+3
-if (location of grass coordinate y+1 && location of grass coordinate y+2) and Math.random>0.3
+if (location of grass coordinate y+1 && location of grass coordinate y+2) and Math.random>0.3 and
+if (location.y()+3 <= location.map().getYRange().max())
     add grass to location grass coordinate y+3
-if (location of grass coordinate x-1 && location of grass coordinate x-2) and Math.random>0.3
+if (location of grass coordinate x-1 && location of grass coordinate x-2) and Math.random>0.3 and
+if (location.x() - 3 <= location.map().getXRange().min())
     add grass to location grass coordinate x-3
-if (location of grass coordinate y-1 && location of grass coordinate y-2) and Math.random>0.3
+if (location of grass coordinate y-1 && location of grass coordinate y-2) and Math.random>0.3 and
+if (location.y() - 3 <= location.map().getYRange().min())
     add grass to location grass coordinate y-3
                                                     
 ~~~
@@ -44,11 +46,11 @@ In the application class, we have to calculate the chances of dirt growing grass
 Pseudocode
 
 ~~~
-for i in  map
-    for char in i
-        if Math.random>0.4
-            char="g"
-
+for (int i = 0; i < map.size(); i++) {
+      int x = 0 + (int) (Math.random() * ((map.size() - 1) + 1));
+      int y = 0 + (int) (Math.random() * ((map.size() - 1) + 1));
+      if (Math.random() > 0.8) gameMap.at(x, y).setGround(new Grass());
+    }
 ~~~
         
 **Tree**
@@ -76,7 +78,8 @@ if tree front or back negihbour == dirt and Math.random>0.2
     add grass to tree front or back neighbour
 
 ~~~
-
+Also add the neccesarry methods such as addFruittoTree, removeFruitfromTree which both returns void and adds
+or remove Fruit. Add getFruits method which returns an arraylist of fruits in the Tree
 
 **Fruit**
 
@@ -144,13 +147,18 @@ iterarte through the hashmap
     append to string key and value
 return string
 ~~~
+
+Add method getItemPrice, which throws an IllegalArgumentException if item is not sold in Vending MAchine.
+Add method SellItem which takes in two parameters, a String representation of the itemSold and the owner of that item
+and returns an Item to be sold
+
 **Modifications to Player class**
-Add Ecopoint type attribute with initial value of 0
+Add Ecopoint type attribute with initial value of 0. Add those necessary setters and getters
 
 **Meal Kit**
 
 We should also create another class for MealKit to represent mealkits sold in vending machine.
-It should have a private String attribute called **type** that is set in the constuctor.
+It should have a private FoodType(Enum) attribute called **type** that is set in the constuctor.
 This attribute will differentiate vegetarian meal kit and meat meal kit.
 
 **Laser Gun**
