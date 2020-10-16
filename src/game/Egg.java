@@ -50,10 +50,12 @@ public class Egg extends PortableItem {
         		// it is stegosaur
         		Stegosaur newStegosaurBaby = new Stegosaur("Stegosaur","baby" , owner) ; 
         		currentLocation.addActor(newStegosaurBaby);
+        		owner.gainEcopoints(100);
         	}else {
         		// it is allosaur
         		Allosaur newAllosaurBaby = new Allosaur("Allosaur","baby" , owner) ; 
         		currentLocation.addActor(newAllosaurBaby);
+        		owner.gainEcopoints(1000);
         	}
     		
     	}
