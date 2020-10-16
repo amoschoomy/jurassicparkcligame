@@ -42,7 +42,7 @@ public class BreedBehaviour extends Action implements Behaviour {
 	
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		return actor + "at " + map.locationOf(actor)+ " is ready to Breed!" ;
+		return actor + "at (" + map.locationOf(actor).x()+"," +map.locationOf(actor).y() +  ") is ready to Breed!" ;
 	}
 	
 	

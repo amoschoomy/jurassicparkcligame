@@ -84,7 +84,7 @@ public class FeedingAction extends Action {
     	
     	String whoToFeed = "" ; 
     	for(int i = 0 ; i < feedTargetLocationList.size() ; i ++) {
-    		whoToFeed += i +") " + feedTargetLocationList.get(i).toString() + "\n"  ; 
+    		whoToFeed += i +") (" + feedTargetLocationList.get(i).x() + "," +feedTargetLocationList.get(i).y() + ")" + "\n"  ; 
     	}
     	
     	boolean targetStatus = true ; 
@@ -115,8 +115,8 @@ public class FeedingAction extends Action {
 		while(itemStatus) {
 			try {
 				Scanner scanTwo = new Scanner(System.in);
-				displayItemsToFeed(actor) ; 
-				System.out.println("Select which item you wanna use to feed the dinosaur? Type their item number :");
+				System.out.println(displayItemsToFeed(actor)) ; 
+				System.out.println("Select which item you wanna use to feed the dinosaur? Type their item index :");
 				int selectedItemNumber = scanTwo.nextInt() ;
 				if(feedTarget instanceof Stegosaur) {
 					if(selectedItemNumber == 1) {

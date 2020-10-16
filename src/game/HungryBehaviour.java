@@ -58,7 +58,7 @@ public class HungryBehaviour extends Action implements Behaviour {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		getAction(actor,map);
-		return actor + "at " + map.locationOf(actor).toString()+ " is getting hungry!" ;
+		return actor + "at (" + map.locationOf(actor).x()+"," +map.locationOf(actor).y() + ") is getting hungry!" ;
 	}
 	
 	@Override
