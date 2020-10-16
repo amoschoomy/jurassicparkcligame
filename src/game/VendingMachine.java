@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 public class VendingMachine extends Item {
   private HashMap<String, Integer> itemsSold = new HashMap<>();
-
   public VendingMachine() {
     super("Vending Machine", 'V', false);
   }
