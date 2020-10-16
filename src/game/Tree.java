@@ -26,27 +26,31 @@ public class Tree extends Ground {
     if (Math.random() >= 0.3 && !fruits.isEmpty()) {
       location.addItem(fruits.remove(0));
     }
-    if(location.x()+3<=80){
-    if (location.map().at(location.x() + 1, location.y()).getGround().getDisplayChar() == '.'
-        && Math.random() >= 0.7) {
-      location.map().at(location.x() + 2, location.y()).setGround(new Grass());
-    }}
-    if(location.y()+2<=24){
-    if (location.map().at(location.x(), location.y() + 1).getGround().getDisplayChar() == '.'
-        && Math.random() >= 0.7) {
-      location.map().at(location.x() , location.y()+2).setGround(new Grass());
-    }}
-if (location.x()+2>=0){
-    if (location.map().at(location.x() - 1, location.y()).getGround().getDisplayChar() == '.'
-        && Math.random() >= 0.7) {
-      location.map().at(location.x() - 2, location.y()).setGround(new Grass());
-    }}
-if (location.y()-2>=0){
-    if (location.map().at(location.x(), location.y() - 1).getGround().getDisplayChar() == '.'
-        && Math.random() >= 0.7) {
-      location.map().at(location.x(), location.y()-2).setGround(new Grass());
+    if (location.x() + 3 <= 80) {
+      if (location.map().at(location.x() + 1, location.y()).getGround().getDisplayChar() == '.'
+          && Math.random() >= 0.7) {
+        location.map().at(location.x() + 2, location.y()).setGround(new Grass());
+      }
     }
-  }}
+    if (location.y() + 2 <= 24) {
+      if (location.map().at(location.x(), location.y() + 1).getGround().getDisplayChar() == '.'
+          && Math.random() >= 0.7) {
+        location.map().at(location.x(), location.y() + 2).setGround(new Grass());
+      }
+    }
+    if (location.x() + 2 >= 0) {
+      if (location.map().at(location.x() - 1, location.y()).getGround().getDisplayChar() == '.'
+          && Math.random() >= 0.7) {
+        location.map().at(location.x() - 2, location.y()).setGround(new Grass());
+      }
+    }
+    if (location.y() - 2 >= 0) {
+      if (location.map().at(location.x(), location.y() - 1).getGround().getDisplayChar() == '.'
+          && Math.random() >= 0.7) {
+        location.map().at(location.x(), location.y() - 2).setGround(new Grass());
+      }
+    }
+  }
 
   public void addFruitToTree() {
     fruits.add(new Fruit());

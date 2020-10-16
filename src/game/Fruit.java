@@ -15,6 +15,7 @@ public class Fruit extends PortableItem {
     super.tick(currentLocation);
     age += 1;
     if (age == 20) displayChar = 'X';
-    if (age > 20 && Math.random()>=0.5) currentLocation.removeItem(this);
+    riped = true;
+    if (age > 20 && Math.random() >= 0.5) currentLocation.removeItem(this);
   }
 }
