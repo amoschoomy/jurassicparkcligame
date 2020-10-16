@@ -45,15 +45,16 @@ public class VendingMachineAction extends Action {
           throw new IllegalArgumentException("Item not found!");
         }
       } catch (IllegalArgumentException e) {
+        System.out.println("Sorry error occured, please try again");
         continue;
       }
     }
     if (success) {
       Item itemBought = vendingMachine.sellItem(userItem, (Player) player);
       return player.toString()
-          + "bought "
+          + " bought "
           + itemBought
-          + " for the price of"
+          + " for the price of "
           + vendingMachine.getItemPrice(userItem);
     } else {
       return "No item bought";
