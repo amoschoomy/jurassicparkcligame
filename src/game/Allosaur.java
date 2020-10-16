@@ -157,18 +157,19 @@ public class Allosaur extends Actor {
 			
 			updateAllosaurState() ; //update allosaur state
 			if(isOpponentAround(this,map)) {
-				Location currentPosition = map.locationOf(this); 
-				int closeOpponent = 0 ; 
+				Location currentPosition = map.locationOf(this);
+				int closeOpponent = 0 ;
 				for(Exit exit: currentPosition.getExits()) {
-					Location destination = exit.getDestination() ; 
+					Location destination = exit.getDestination() ;
 					if(destination.containsAnActor()) {
 						if(destination.getActor() instanceof Stegosaur) {
-							return new AttackAction(destination.getActor()) ; 
-						} 
+							destination.getActor().hurt(50);
+            				System.out.println(this.toString()+" hurt"+destination.getActor().toString()+" 50 points");
+						}
 					}
-							
+
 				}
-				
+
 			}
 			
 			
@@ -195,6 +196,9 @@ public class Allosaur extends Actor {
 			Action wander = behaviour.getAction(this, map);
 				return wander;}
 			catch (NullPointerException e){
-			return new DoNothingAction();
+				Action wander = behaviour.getAction(this, map);
+				return wander;
 		}
-}}
+}
+
+}
