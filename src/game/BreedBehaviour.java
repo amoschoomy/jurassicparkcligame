@@ -42,7 +42,7 @@ public class BreedBehaviour extends Action implements Behaviour {
 	
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		return actor + "at (" + map.locationOf(actor).x()+"," +map.locationOf(actor).y() +  ") is ready to Breed!" ;
+		return actor + " at (" + map.locationOf(actor).x()+"," +map.locationOf(actor).y() +  ") is ready to Breed!" ;
 	}
 	
 	
@@ -61,12 +61,12 @@ public class BreedBehaviour extends Action implements Behaviour {
 							//actor is the female among the couple
 							actor.removeCapability(LifeStage.ADULT);
 							actor.addCapability(LifeStage.PREGNANT);
-							System.out.println(actor + "at " + map.locationOf(actor)+ " is breed successful and pregnant!") ; 
+							System.out.println(actor + " at (" + map.locationOf(actor).x()+"," +map.locationOf(actor).y() + ") is breed successful and pregnant!") ; 
 						}else {
 							//partner is the female among the couple
 							partner.removeCapability(LifeStage.ADULT);
 							partner.addCapability(LifeStage.PREGNANT);
-							System.out.println(partner + "at " + map.locationOf(partner)+ " is breed successful and pregnant!") ; 
+							System.out.println(partner + " at (" + map.locationOf(partner).x()+"," +map.locationOf(partner).y() + ") is breed successful and pregnant!") ; 
 						}
 						
 						return this ;
