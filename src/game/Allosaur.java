@@ -12,38 +12,42 @@ public class Allosaur extends Actor {
 		private Behaviour behaviour;
 		private int age = 0 ; 
 		private int foodLevel ;  // baby foodLevel start range
-		private int starvationLevel = 0 ; 
-		private String lifeStage ; 
-		private char gender ; 
+		private int starvationLevel = 0 ;  
+		private Player owner ; 
+		private int pregnantPeriodCount = 0 ; 
 		/** 
 		 * Constructor.
 		 * All Allosaurs are represented by a 'd' and have 100 hit points.
 		 * 
 		 * @param name the name of this Allosaur
 		 */
-		public Allosaur(String name, String lifeStage){
+		public Allosaur(String name, String lifeStage , Player owner){
 			super(name, 'a', 100);
+			
+			this.owner = owner ; 
 			
 			behaviour = new WanderBehaviour();
 			
 			this.addCapability(LiveStatus.LIVE);
 			this.addCapability(FoodType.CARNIVORES); // Stegosaur is a carnivores
 			
-			if(lifeStage == "baby" || lifeStage == "adult") {
-				this.lifeStage = lifeStage;
-				if(lifeStage == "adult"){
-					this.foodLevel = 50 ; 
-					this.displayChar = 'A' ;
-				}else {
-					//baby allosaur 
-					this.foodLevel = 10 ; 
-				}
+			if(lifeStage == "adult"){
+				this.age = 30 ; 
+				this.addCapability(LifeStage.ADULT);
+				this.foodLevel = 50 ; 
+				this.displayChar = 'A' ;
+			}else if(lifeStage == "baby"){	
+				//baby stegosaur 
+				this.addCapability(LifeStage.BABY);
+				this.foodLevel = 10;
+			}else {
+				throw new IllegalArgumentException("life stage only can be adult or baby");
 			}
 			
 			if(Math.random() >0.5) {
-				this.gender = 'm' ; // set gender as male ; 
+				this.addCapability(Gender.MALE) ;// set gender as male ; 
 			}else {
-				this.gender = 'f' ; // set gender as female
+				this.addCapability(Gender.FEMALE) ; // set gender as female
 			}
 			
 		}
@@ -68,9 +72,24 @@ public class Allosaur extends Actor {
 			raiseFoodLevel(50) ; 
 		}
 		
+		public boolean readyBreed() {
+			boolean retVal = false ; 
+			if(this.foodLevel > 60) {
+				retVal = true ; 
+			}
+			
+			return retVal ; 
+		}
 		
 		public void updateAllosaurState() {
 			this.age ++ ; 
+			
+			if(this.age == 30 && this.hasCapability(LifeStage.BABY)) {
+				//grow up
+				this.removeCapability(LifeStage.BABY);
+				this.addCapability(LifeStage.ADULT);
+				this.displayChar = 'D';
+			}
 			
 			if(this.foodLevel >0) {
 				this.foodLevel -- ;
@@ -79,6 +98,10 @@ public class Allosaur extends Actor {
 			if(this.foodLevel <30) {
 				this.behaviour = new HungryBehaviour() ; 
 			}
+			
+			if(this.foodLevel > 60) {
+				this.behaviour = new BreedBehaviour() ; 
+			}
 		
 			if(this.foodLevel == 0) {
 				this.behaviour = null ; 
@@ -86,6 +109,10 @@ public class Allosaur extends Actor {
 			}else {
 				this.starvationLevel = 0 ; 
 			}
+		}
+		
+		private boolean isPregnant() {
+			return this.hasCapability(LifeStage.PREGNANT) ; 
 		}
 		
 		
@@ -107,6 +134,19 @@ public class Allosaur extends Actor {
 		public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 			
 			updateAllosaurState() ; //update allosaur state
+			
+			if(isPregnant()) {
+				pregnantPeriodCount ++ ; 
+				if(pregnantPeriodCount == 10) {
+					//prenant after 10 turns 
+					this.removeCapability(LifeStage.PREGNANT);
+					this.removeCapability(LifeStage.ADULT);
+					Egg egg = new Egg("Egg",true , owner) ; 
+					map.locationOf(this).addItem(egg);;
+					pregnantPeriodCount = 0 ;
+				}
+			}
+			
 			if(this.starvationLevel == 20 || this.hitPoints == 0) {
 				this.removeCapability(LiveStatus.LIVE);
 				this.addCapability(LiveStatus.DEAD);
