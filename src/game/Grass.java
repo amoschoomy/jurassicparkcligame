@@ -24,7 +24,7 @@ public class Grass extends Ground {
       if (location.map().at(location.x(), location.y() + 1).getGround().getDisplayChar() == 'g'
           && location.map().at(location.x(), location.y() + 2).getGround().getDisplayChar() == 'g'
           && Math.random() >= 0.8) {
-        location.map().at(location.x(), location.y() - 3).setGround(new Grass());
+        location.map().at(location.x(), location.y() + 3).setGround(new Grass());
       }
     }
     if (location.x() - 3 >= 0) {
