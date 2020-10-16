@@ -15,7 +15,7 @@ public class HarvestAction extends Action {
   public String execute(Actor actor, GameMap map) {
     if (actor instanceof Player) {
       ((Player) actor).getEcopoints().gain(1);
-      grass.harvest(map.locationOf(actor));
+      grass.harvest(map.locationOf(actor), (Player) actor);
       String action = actor.toString() + "harvested grass to become hay and gained 1 ecopoint";
       map.locationOf(actor).setGround(new Dirt());
       return action;

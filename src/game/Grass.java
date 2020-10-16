@@ -45,7 +45,7 @@ public class Grass extends Ground {
     }
   }
 
-  public void harvest(Location location) {
-    location.map().at(location.x(), location.y()).addItem(new Hay());
+  public void harvest(Location location, Player player) {
+    player.addItemToInventory(new Hay());
   }
 }
