@@ -46,10 +46,10 @@ public class Allosaur extends Actor {
 			
 			if(Math.random() >0.5) {
 				this.addCapability(Gender.MALE) ;// set gender as male ;
-      			System.out.println(this.toString()+Gender.MALE);
+      			System.out.println(this.toString()+": "+Gender.MALE);
 			}else {
 				this.addCapability(Gender.FEMALE) ; // set gender as female
-				System.out.println(this.toString()+Gender.FEMALE);
+				System.out.println(this.toString()+": "+Gender.FEMALE);
 
 			}
 			
