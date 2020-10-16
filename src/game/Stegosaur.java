@@ -175,10 +175,9 @@ public class Stegosaur extends Actor {
       map.locationOf(this).addItem(new Corpse());
       map.removeActor(this);
     }
-	  try{
-		  Action wander = behaviour.getAction(this, map);
-		  return wander;}
-	  catch (NullPointerException e){
+    Action wander = behaviour.getAction(this, map);
+    if (wander!=null){ return wander;}
+		else{
 		  return new DoNothingAction();
 	  }
 

@@ -162,9 +162,13 @@ public class Allosaur extends Actor {
 				for(Exit exit: currentPosition.getExits()) {
 					Location destination = exit.getDestination() ;
 					if(destination.containsAnActor()) {
-						if(destination.getActor() instanceof Stegosaur) {
+						if(destination.getActor() instanceof Stegosaur && closeOpponent<1 && Math.random()>0.1) {
 							destination.getActor().hurt(50);
-            				System.out.println(this.toString()+" hurt "+destination.getActor().toString()+"by 50 points");
+							closeOpponent+=1;
+            				System.out.println(this.toString()+" hurt "+destination.getActor().toString()+" by 50 points");
+						}
+						else{
+							System.out.println(this.toString()+" tries to hurt "+destination.getActor().toString()+" but failed");
 						}
 					}
 
@@ -191,14 +195,10 @@ public class Allosaur extends Actor {
 				map.locationOf(this).addItem(new Corpse()); ; 
 				map.removeActor(this);
 			}
-
-			try{
 			Action wander = behaviour.getAction(this, map);
-				return wander;}
-			catch (NullPointerException e){
-				Action wander = behaviour.getAction(this, map);
-				return wander;
-		}
-}
+			if (wander!=null){ return wander;}
+			else{
+				return new DoNothingAction();
+			}
+}}
 
-}
