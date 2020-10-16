@@ -5,7 +5,9 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
+import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
 
 public class Allosaur extends Actor {
 	// Will need to change this to a collection if Stegosaur gets additional Behaviours.
@@ -81,6 +83,21 @@ public class Allosaur extends Actor {
 			return retVal ; 
 		}
 		
+		private boolean isOpponentAround(Actor actor, GameMap map) {
+			Location currentPosition = map.locationOf(this); 
+			int closeOpponent = 0 ; 
+			for(Exit exit: currentPosition.getExits()) {
+				Location destination = exit.getDestination() ; 
+				if(destination.containsAnActor()) {
+					if(destination.getActor() instanceof Stegosaur) {
+						closeOpponent++ ; 
+					} 
+				}
+						
+			}
+			return closeOpponent > 0 ; 
+		}
+		
 		public void updateAllosaurState() {
 			this.age ++ ; 
 			
@@ -136,6 +153,21 @@ public class Allosaur extends Actor {
 		public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 			
 			updateAllosaurState() ; //update allosaur state
+			if(isOpponentAround(this,map)) {
+				Location currentPosition = map.locationOf(this); 
+				int closeOpponent = 0 ; 
+				for(Exit exit: currentPosition.getExits()) {
+					Location destination = exit.getDestination() ; 
+					if(destination.containsAnActor()) {
+						if(destination.getActor() instanceof Stegosaur) {
+							return new AttackAction(destination.getActor()) ; 
+						} 
+					}
+							
+				}
+				
+			}
+			
 			
 			if(isPregnant()) {
 				pregnantPeriodCount ++ ; 
