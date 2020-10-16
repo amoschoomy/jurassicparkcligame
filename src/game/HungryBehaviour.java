@@ -57,7 +57,8 @@ public class HungryBehaviour extends Action implements Behaviour {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		return actor + "at " + map.locationOf(actor)+ " is getting hungry!" ;
+		getAction(actor,map);
+		return actor + "at " + map.locationOf(actor).toString()+ " is getting hungry!" ;
 	}
 	
 	@Override
@@ -76,6 +77,7 @@ public class HungryBehaviour extends Action implements Behaviour {
 							map.moveActor(actor,destination);
 							Stegosaur stegosaur = (Stegosaur)actor ; 
 							stegosaur.eatFruit(fruit);
+              				System.out.println(stegosaur+" eats Fruit");
 							destination.removeItem(item);
 							return this ; 
 						}
@@ -86,6 +88,7 @@ public class HungryBehaviour extends Action implements Behaviour {
 						map.moveActor(actor,destination);
 						Stegosaur stegosaur = (Stegosaur)actor ; 
 						stegosaur.grazeGrass(grass);
+            			System.out.println(stegosaur+ " grazed Grass");
 						destination.setGround(new Dirt());
 						return this; 
 					}	
@@ -105,6 +108,7 @@ public class HungryBehaviour extends Action implements Behaviour {
 							map.moveActor(actor,destination);
 							Allosaur allosaur = (Allosaur)actor ; 
 							allosaur.eatCorpse(corpse);
+              				System.out.println(allosaur + " ate corpse");
 							destination.removeItem(item);
 							return this ; 
 						}
