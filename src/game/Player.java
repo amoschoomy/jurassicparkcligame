@@ -55,10 +55,18 @@ public class Player extends Actor {
     return menu.showMenu(this, actions, display);
   }
 
+    /**
+     * Get Player Ecopoints object
+     * @return Ecopoints object
+     */
   public Ecopoints getEcopoints() {
     return ecopoints;
   }
 
+    /**
+     * Gain ecopoints
+     * @param val int value for Ecopoints to be gained
+     */
   public void gainEcopoints(int val) {
     ecopoints.gain(val);
   }

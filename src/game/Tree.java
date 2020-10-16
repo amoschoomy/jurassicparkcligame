@@ -5,6 +5,10 @@ import edu.monash.fit2099.engine.Location;
 
 import java.util.ArrayList;
 
+/**
+ * Tree class for the game. Extends Ground class
+ * @author Edited by Amos
+ */
 public class Tree extends Ground {
   private int age = 0;
   private ArrayList<Fruit> fruits = new ArrayList<>();
@@ -52,14 +56,25 @@ public class Tree extends Ground {
     }
   }
 
+  /**
+   * Add fruit to the Tree arraylist of fruits
+   */
   public void addFruitToTree() {
     fruits.add(new Fruit());
   }
 
+  /**
+   * Remove fruit from Tree
+   * @param fruit Fruit object to be removed
+   */
   public void removeFruitFromTree(Fruit fruit) {
     fruits.remove(fruit);
   }
 
+  /**
+   * Get Fruits list in the tree
+   * @return ArrayList of Fruit objects
+   */
   public ArrayList<Fruit> getFruits() {
     return new ArrayList<>(fruits);
   }

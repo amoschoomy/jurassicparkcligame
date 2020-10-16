@@ -1,11 +1,19 @@
 package game;
 
+
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * Class for Fruit in the game. Extends Portable Item class
+ * @author Amos
+ */
 public class Fruit extends PortableItem {
   private boolean riped = false;
   private int age = 0;
 
+  /**
+   * Uses superclass constructor
+   */
   public Fruit() {
     super("Fruit", 'F');
   }

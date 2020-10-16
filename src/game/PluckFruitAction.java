@@ -4,9 +4,18 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * Action for Pluck fruit. Extends Action class
+ *
+ * @author Amos
+ */
 public class PluckFruitAction extends Action {
   private Tree tree;
 
+  /**
+   * Initiliase Tree object
+   * @param tree Tree object
+   */
   public PluckFruitAction(Tree tree) {
     this.tree = tree;
   }

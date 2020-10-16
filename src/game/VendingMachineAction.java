@@ -7,9 +7,18 @@ import edu.monash.fit2099.engine.Item;
 
 import java.util.Scanner;
 
+/**
+ * Class for Vending Machine Actions in game. Extends Action class
+ *
+ * @author Amos
+ */
 public class VendingMachineAction extends Action {
   private VendingMachine vendingMachine;
 
+  /**
+   * Initialise vending machine item
+   * @param vendingMachine Vending Machine object
+   */
   public VendingMachineAction(VendingMachine vendingMachine) {
     this.vendingMachine = vendingMachine;
   }
@@ -19,6 +28,7 @@ public class VendingMachineAction extends Action {
     boolean status = true;
     boolean success = false;
     String userItem = null;
+    //Get user input for vending machine Interactions
     while (status) {
       try {
         Scanner sc = new Scanner(System.in);
