@@ -1,14 +1,12 @@
 package game;
 
-/**
- * Class for MealKit in the game. Extends PortableItem class
- */
+/** Class for MealKit in the game. Extends PortableItem class */
 public class MealKit extends PortableItem {
   private FoodType type;
 
   /**
-   * Calls superclass constructor
-   * Adds capaobility of Food Type
+   * Calls superclass constructor Adds capaobility of Food Type
+   *
    * @param type Food Type
    * @throws IllegalArgumentException if type is not Carnivore or Herbivore type
    */

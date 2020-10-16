@@ -5,13 +5,12 @@ import edu.monash.fit2099.engine.Location;
 
 /**
  * Grass class for the game. Extends Ground class in Engine
+ *
  * @author Amos
  */
 public class Grass extends Ground {
 
-  /**
-   * Uses superclass constructor
-   */
+  /** Uses superclass constructor */
   public Grass() {
     super('g');
   }
@@ -53,8 +52,8 @@ public class Grass extends Ground {
   }
 
   /**
-   * Harvest grass at the location.
-   * Adds Hay into inventory
+   * Harvest grass at the location. Adds Hay into inventory
+   *
    * @param location Location of grass
    * @param player Current Player
    */

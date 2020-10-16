@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Tree class for the game. Extends Ground class
+ *
  * @author Edited by Amos
  */
 public class Tree extends Ground {
@@ -56,15 +57,14 @@ public class Tree extends Ground {
     }
   }
 
-  /**
-   * Add fruit to the Tree arraylist of fruits
-   */
+  /** Add fruit to the Tree arraylist of fruits */
   public void addFruitToTree() {
     fruits.add(new Fruit());
   }
 
   /**
    * Remove fruit from Tree
+   *
    * @param fruit Fruit object to be removed
    */
   public void removeFruitFromTree(Fruit fruit) {
@@ -73,6 +73,7 @@ public class Tree extends Ground {
 
   /**
    * Get Fruits list in the tree
+   *
    * @return ArrayList of Fruit objects
    */
   public ArrayList<Fruit> getFruits() {

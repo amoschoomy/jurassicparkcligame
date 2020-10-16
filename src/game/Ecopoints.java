@@ -2,6 +2,7 @@ package game;
 
 /**
  * Class for Player's ecopoint
+ *
  * @author Amos
  */
 public class Ecopoints {
@@ -14,6 +15,7 @@ public class Ecopoints {
 
   /**
    * spend Player's ecopoint
+   *
    * @param point . int value
    * @throws IllegalArgumentException if point less than zero
    */
@@ -24,6 +26,7 @@ public class Ecopoints {
 
   /**
    * get Player ecopoints
+   *
    * @return int value of points
    */
   public int getPoints() {

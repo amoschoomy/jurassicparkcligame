@@ -17,6 +17,7 @@ public class VendingMachineAction extends Action {
 
   /**
    * Initialise vending machine item
+   *
    * @param vendingMachine Vending Machine object
    */
   public VendingMachineAction(VendingMachine vendingMachine) {
@@ -28,17 +29,16 @@ public class VendingMachineAction extends Action {
     boolean status = true;
     boolean success = false;
     String userItem = null;
-    //Get user input for vending machine Interactions
+    // Get user input for vending machine Interactions
     while (status) {
       try {
         Scanner sc = new Scanner(System.in);
         System.out.println(vendingMachine.displayItems());
         System.out.println("Type 'Exit' to exit and waste a turn!");
-        System.out.println("Ecopoints available: "+((Player)player).getEcopoints().getPoints());
+        System.out.println("Ecopoints available: " + ((Player) player).getEcopoints().getPoints());
         System.out.println("Which item do you want to buy?");
         userItem = sc.nextLine();
-        if (userItem.equals("Exit"))
-          break;
+        if (userItem.equals("Exit")) break;
         if (vendingMachine.sellItem(userItem, (Player) player) != null) {
           if (((Player) player).getEcopoints().getPoints()
               < vendingMachine.getItemPrice(userItem)) {
