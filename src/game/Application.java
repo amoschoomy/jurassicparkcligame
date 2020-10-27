@@ -52,6 +52,10 @@ public class Application {
       int y = 0 + (int) (Math.random() * ((map.size() - 1) + 1));
       if (Math.random() > 0.8) gameMap.at(x, y).setGround(new Grass());
     }
+    gameMap.at(17,17).setGround((new Water()));
+    gameMap.at(18,17).setGround(new Water());
+    gameMap.at(19,17).setGround(new Water());
+    gameMap.at(18,18).setGround(new Water());
     Player player = new Player("Player", '@', 100);
     Player enemy = new Player("CPU", '|', 1000);
     world.addPlayer(player, gameMap.at(9, 4));
