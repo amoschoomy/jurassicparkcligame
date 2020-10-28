@@ -47,6 +47,9 @@ public class Application {
 
     GameMap gameMap = new GameMap(groundFactory, map);
     world.addGameMap(gameMap);
+    GameMap gameMap1=new GameMap(groundFactory,'.',80,24);
+    world.addGameMap(gameMap1);
+
     for (int i = 0; i < map.size(); i++) {
       int x = 0 + (int) (Math.random() * ((map.size() - 1) + 1));
       int y = 0 + (int) (Math.random() * ((map.size() - 1) + 1));
@@ -56,15 +59,13 @@ public class Application {
     gameMap.at(18,17).setGround(new Water());
     gameMap.at(19,17).setGround(new Water());
     gameMap.at(18,18).setGround(new Water());
-    Player player = new Player("Player", '@', 100);
-    Player enemy = new Player("CPU", '|', 1000);
-    world.addPlayer(player, gameMap.at(9, 4));
-    world.addPlayer(enemy, gameMap.at(10, 4));
+    Player player = new Player("Player", '@', 100,gameMap);
+    player.addMapToGameMaps(gameMap1);
+    world.addPlayer(player, gameMap.at(0, 0));
     player.gainEcopoints(10000);
     // Place a pair of stegosaurs in the middle of the map
     gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
     gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
-    gameMap.at(31, 12).addActor(new Allosaur("Allosaur", "adult", enemy));
     VendingMachine vm = new VendingMachine();
     vm.addItemsToVendingMachine("Hay", 10);
     vm.addItemsToVendingMachine("Fruit", 15);

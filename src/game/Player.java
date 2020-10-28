@@ -2,11 +2,16 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
+
 /** Class representing the Player. */
 public class Player extends Actor {
 
   private Menu menu = new Menu();
   private Ecopoints ecopoints = new Ecopoints();
+  private ArrayList<GameMap> maps=new ArrayList<>();
 
   /**
    * Constructor.
@@ -15,8 +20,9 @@ public class Player extends Actor {
    * @param displayChar Character to represent the player in the UI
    * @param hitPoints Player's starting number of hitpoints
    */
-  public Player(String name, char displayChar, int hitPoints) {
+  public Player(String name, char displayChar, int hitPoints,GameMap currentMap) {
     super(name, displayChar, hitPoints);
+    maps.add(currentMap);
   }
 
   @Override
@@ -50,6 +56,14 @@ public class Player extends Actor {
       actions.add(new FeedingAction());
     }
 
+    if (currentPosition.x()==map.getXRange().min()&&currentPosition.y()==map.getYRange().min() && map==maps.get(0)){
+      actions.add(new MoveActorAction(maps.get(1).at(maps.get(1).getXRange().max(),maps.get(1).getYRange().max()),"Left","Q"));
+    }
+
+    if (currentPosition.x()==map.getXRange().max()&&currentPosition.y()==map.getYRange().max() && map==maps.get(1)){
+      actions.add(new MoveActorAction(maps.get(0).at(maps.get(0).getXRange().min(),maps.get(0).getYRange().min()),"Right","Q"));
+    }
+
     if (lastAction.getNextAction() != null) return lastAction.getNextAction();
     return menu.showMenu(this, actions, display);
   }
@@ -71,4 +85,8 @@ public class Player extends Actor {
   public void gainEcopoints(int val) {
     ecopoints.gain(val);
   }
+  public void addMapToGameMaps(GameMap map){
+    maps.add(map);
+  }
+
 }
