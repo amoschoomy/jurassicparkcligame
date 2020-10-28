@@ -35,25 +35,34 @@ public class ThirstBehaviour extends Action implements Behaviour {
 
     @Override
     public Action getAction(Actor actor, GameMap map) {
-//        Location currentPosition = map.locationOf(actor);
-//        for (Exit exit : currentPosition.getExits()) {
-//            Location destination = exit.getDestination();
-//            if (destination.getGround() instanceof Water){
-//
-//            }
-////            if (destination.canActorEnter(actor)) {
-////                // Hunt for fruit
-////                for (Item item : destination.getItems()) {
-////                    if (item instanceof Fruit) {
-////                        Fruit fruit = (Fruit) item;
-////                        map.moveActor(actor, destination);
-////                        Stegosaur stegosaur = (Stegosaur) actor;
-////                        stegosaur.eatFruit(fruit);
-////                        System.out.println(stegosaur + " eats Fruit");
-////                        destination.removeItem(item);
-////                        return this;
-////                    }
-////                }
-////    }
+        Location currentPosition = map.locationOf(actor);
+        for (Exit exit : currentPosition.getExits()) {
+            Location destination = exit.getDestination();
+            if (destination.getGround() instanceof Water && actor instanceof Allosaur){
+                ((Allosaur) actor).drinkWater();
+                System.out.println(actor.toString()+" drinks water from pool");
+                return this;
+            }
+            if (destination.getGround() instanceof Water && actor instanceof Stegosaur){
+                ((Stegosaur) actor).drinkWater();
+                System.out.println(actor.toString()+" drinks water from pool");
+                return this;
+            }
 
-    return null;}}
+            //Placeholder for other two dinasour
+//            if (destination.getGround() instanceof Water && actor instanceof Allosaur){
+//                ((Allosaur) actor).drinkWater();
+//                System.out.println(actor.toString()+" drinks water from pool");
+//                return this;
+//            }
+//            if (destination.getGround() instanceof Water && actor instanceof Allosaur){
+//                ((Allosaur) actor).drinkWater();
+//                System.out.println(actor.toString()+" drinks water from pool");
+//                return this;}
+            else{
+                WanderBehaviour wander = new WanderBehaviour();
+                return wander.getAction(actor, map);
+            }
+        }
+
+    return new WanderBehaviour().getAction(actor, map);}}

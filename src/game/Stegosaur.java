@@ -8,6 +8,8 @@ public class Stegosaur extends Actor {
   private int age = 0;
   private int foodLevel;
   private int starvationLevel = 0;
+  private int waterLevel=0;
+  private int thirstLevel=0;
   private Player owner;
   private int pregnantPeriodCount = 0;
 
@@ -31,11 +33,13 @@ public class Stegosaur extends Actor {
       this.addCapability(LifeStage.ADULT);
       this.age = 30;
       this.foodLevel = 50;
+      this.waterLevel=50;
       this.displayChar = 'D';
     } else if (lifeStage == "baby") {
       // baby stegosaur
       this.addCapability(LifeStage.BABY);
       this.foodLevel = 10;
+      this.waterLevel=10;
     } else {
       throw new IllegalArgumentException("life stage only can be adult or baby");
     }
@@ -53,7 +57,17 @@ public class Stegosaur extends Actor {
   private void Starving() {
     this.starvationLevel += 1;
   }
-
+  private void Thirsting(){
+    this.thirstLevel+=1;
+  }
+  private void raiseWaterLevel(int x){
+    if(this.waterLevel+x<=100){
+      this.waterLevel+=x;
+    }
+    else{
+      this.waterLevel=100;
+    }
+  }
   /**
    * This method is used to raise the food level of stegosaur
    *
@@ -65,6 +79,9 @@ public class Stegosaur extends Actor {
     } else {
       this.foodLevel = 100;
     }
+  }
+  public void drinkWater(){
+    raiseWaterLevel(20);
   }
 
   /**
@@ -128,6 +145,10 @@ public class Stegosaur extends Actor {
       this.foodLevel--;
     }
 
+    if (this.waterLevel>0){
+      this.waterLevel--;
+    }
+
     if (this.foodLevel < 30) {
       this.behaviour = new HungryBehaviour();
     }
@@ -142,7 +163,20 @@ public class Stegosaur extends Actor {
     } else {
       this.starvationLevel = 0;
     }
+
+    if(this.waterLevel<30){
+      this.behaviour=new ThirstBehaviour();
+    }
+
+    if(this.waterLevel==0){
+      this.behaviour=null;
+      this.Thirsting();
+    }else{
+      this.thirstLevel=0;
+    }
+
   }
+
 
   /** This method is used to show if the stegosaur is pregnant */
   private boolean isPregnant() {
@@ -181,7 +215,7 @@ public class Stegosaur extends Actor {
       }
     }
 
-    if (this.starvationLevel == 20 || this.hitPoints == 0) {
+    if (this.starvationLevel == 20 || this.hitPoints == 0||this.thirstLevel==20) {
       // stegoosaur die
       this.removeCapability(LiveStatus.LIVE);
       this.addCapability(LiveStatus.DEAD);
