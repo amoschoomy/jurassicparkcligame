@@ -36,6 +36,7 @@ public class ThirstBehaviour extends Action implements Behaviour {
     @Override
     public Action getAction(Actor actor, GameMap map) {
         Location currentPosition = map.locationOf(actor);
+        if (currentPosition!=null){
         for (Exit exit : currentPosition.getExits()) {
             Location destination = exit.getDestination();
             if (destination.getGround() instanceof Water && actor instanceof Allosaur){
@@ -63,6 +64,6 @@ public class ThirstBehaviour extends Action implements Behaviour {
                 WanderBehaviour wander = new WanderBehaviour();
                 return wander.getAction(actor, map);
             }
-        }
+        }}
 
     return new WanderBehaviour().getAction(actor, map);}}

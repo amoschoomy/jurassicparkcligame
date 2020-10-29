@@ -65,7 +65,7 @@ public class Application {
     player.gainEcopoints(10000);
     // Place a pair of stegosaurs in the middle of the map
     gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
-    gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", "adult", player));
+    gameMap.at(32, 12).addActor(new Archaeopteryx("Archaeopteryx", "adult", player));
     VendingMachine vm = new VendingMachine();
     vm.addItemsToVendingMachine("Hay", 10);
     vm.addItemsToVendingMachine("Fruit", 15);

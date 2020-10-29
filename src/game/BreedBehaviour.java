@@ -74,7 +74,8 @@ public class BreedBehaviour extends Action implements Behaviour {
   @Override
   public Action getAction(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-    if (isOppositeGenderAround(actor, map)) {
+    if (currentPosition!=null){
+      if (isOppositeGenderAround(actor, map)) {
       for (Exit exit : currentPosition.getExits()) {
         Location destination = exit.getDestination();
         if (destination.containsAnActor()) {
@@ -133,7 +134,7 @@ public class BreedBehaviour extends Action implements Behaviour {
       // if no other actor , just wander
       WanderBehaviour wander = new WanderBehaviour();
       return wander.getAction(actor, map);
-    }
+    }}
 
     WanderBehaviour wander = new WanderBehaviour();
     return wander.getAction(actor, map);
