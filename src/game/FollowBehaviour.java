@@ -36,9 +36,12 @@ public class FollowBehaviour implements Behaviour {
       }
     }}
     if (here != null && there != null && actor.hasCapability(FlyAbility.FLY)){
-      for(int i = map.locationOf(target).x(); i >map.getXRange().min() ; i--) {
-        if(map.at(i,i).canActorEnter(actor)){
-          return new MoveActorAction(map.at(i,i),"fly");
+      //      for(int i = map.getXRange().max(); i >x ; i--) {
+      //        for(int j = map.getYRange().max(); j >y ; j++) {
+      for (int i = map.locationOf(target).x(); i > map.getXRange().min(); i--)
+        for(int j =map.locationOf(target).y(); j > map.getYRange().min(); j--) {
+          if(map.at(i,j).canActorEnter(actor)){
+            return new MoveActorAction(map.at(i,j),"fly");
         }
       }
 
