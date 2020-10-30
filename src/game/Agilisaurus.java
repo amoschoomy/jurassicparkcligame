@@ -31,7 +31,7 @@ public class Agilisaurus extends Actor {
         if (lifeStage == "adult") {
             this.age = 30;
             this.addCapability(LifeStage.ADULT);
-            this.foodLevel = 15;
+            this.foodLevel = 20;
             this.waterLevel=50;
             this.displayChar = 'L';
         } else if (lifeStage == "baby") {

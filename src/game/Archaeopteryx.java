@@ -31,7 +31,7 @@ public class Archaeopteryx extends Actor {
             this.age = 30;
             this.addCapability(LifeStage.ADULT);
             this.addCapability(FlyAbility.FLY);// adult can fly
-            this.foodLevel = 50;
+            this.foodLevel = 20;
             this.waterLevel=50;
             this.displayChar = 'A';
         } else if (lifeStage == "baby") {
@@ -213,7 +213,7 @@ public class Archaeopteryx extends Actor {
                 // prenant after 10 turns
                 this.removeCapability(LifeStage.PREGNANT);
                 this.removeCapability(LifeStage.ADULT);
-                Egg egg = new Egg("Allosaur", true, owner);
+                Egg egg = new Egg("Archaeopteryx", true, owner);
                 map.locationOf(this).addItem(egg);
                 ;
                 pregnantPeriodCount = 0;
@@ -228,7 +228,7 @@ public class Archaeopteryx extends Actor {
         }
         
         if(this.foodLevel <=0) {
-        	System.out.println("Allosaur is unwake due to hungry now.");
+        	System.out.println("Archaeopytrex is asleep due to hungry now.");
         	return new DoNothingAction();
         }
         

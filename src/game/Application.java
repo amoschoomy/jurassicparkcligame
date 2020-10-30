@@ -64,7 +64,7 @@ public class Application {
     world.addPlayer(player, gameMap.at(0, 0));
     player.gainEcopoints(10000);
     // Place a pair of stegosaurs in the middle of the map
-    gameMap.at(32, 1).addActor(new Stegosaur("Stegosaur", "adult", player));
+//    gameMap.at(32, 1).addActor(new Stegosaur("Stegosaur", "adult", player));
     gameMap.at(32, 5).addActor(new Stegosaur("Stegosaur", "adult", player));
     gameMap.at(32, 12).addActor(new Archaeopteryx("Archaeopteryx", "adult", player));
 //    gameMap.at(0, 2).addActor(new Agilisaurus("Agilisaurus", "adult", player));
