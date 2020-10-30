@@ -2,6 +2,8 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.HashMap;
+
 /** A behaviour subclass to produce breeding ability to dinosaurs to born child. */
 public class HungryBehaviour extends Action implements Behaviour {
 
@@ -69,6 +71,20 @@ public class HungryBehaviour extends Action implements Behaviour {
 
     return closeDino > 0;
   }
+  private HashMap<String,Integer> findDinasour (Actor actor, GameMap map){
+    int x=map.getXRange().min();
+    int y=map.getYRange().min();
+    HashMap<String,Integer> coordinates=new HashMap<String,Integer>(2);
+    for(int i = map.getXRange().max(); i >x ; i--) {
+      for(int j = map.getYRange().max(); j >y ; j++) {
+        if (map.at(i,j).getActor() instanceof Allosaur ||map.at(i,j).getActor() instanceof Stegosaur ||map.at(i,j).getActor() instanceof Archaeopteryx ||map.at(i,j).getActor() instanceof Agilisaurus)
+        coordinates.put("x",i);
+        coordinates.put("y",j);
+      }
+
+    }
+    return coordinates;
+    }
 
   @Override
   public String execute(Actor actor, GameMap map) {
@@ -135,7 +151,8 @@ public class HungryBehaviour extends Action implements Behaviour {
         }
       }
       	//For Agilisaurus
-    } else if ((actor instanceof Agilisaurus) && (isDinosaurCorpseAround(actor, map) ||isFruitAround(actor, map) || isGrassAround(actor, map))) {
+    }
+    else if ((actor instanceof Agilisaurus) && (isDinosaurCorpseAround(actor, map) ||isFruitAround(actor, map) || isGrassAround(actor, map))) {
         for (Exit exit : currentPosition.getExits()) {
           Location destination = exit.getDestination();
           if (destination.canActorEnter(actor)) {
@@ -178,8 +195,14 @@ public class HungryBehaviour extends Action implements Behaviour {
             
           }
         }
-
-      } 
+      }
+    else if(actor.hasCapability(FlyAbility.FLY)){
+      int x=findDinasour(actor, map).get("x");
+      int y=findDinasour(actor, map).get("y");
+      Location destination=map.at(x,y);
+      map.moveActor(actor,destination);
+      return this;
+    }
     
     
     

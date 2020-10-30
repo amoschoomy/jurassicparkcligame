@@ -24,17 +24,20 @@ public class Archaeopteryx extends Actor {
         behaviour = new WanderBehaviour();
 
         this.addCapability(LiveStatus.LIVE);
-        this.addCapability(FoodType.CARNIVORES); // Stegosaur is a carnivores
+        this.addCapability(FoodType.CARNIVORES); // Archaepyotrax is a carnivores
+
 
         if (lifeStage == "adult") {
             this.age = 30;
             this.addCapability(LifeStage.ADULT);
+            this.addCapability(FlyAbility.FLY);// adult can fly
             this.foodLevel = 50;
             this.waterLevel=50;
             this.displayChar = 'A';
         } else if (lifeStage == "baby") {
             // baby stegosaur
             this.addCapability(LifeStage.BABY);
+            this.addCapability(FlyAbility.WALK);// baby can only walk
             this.foodLevel = 10;
             this.waterLevel=10;
         } else {
@@ -106,6 +109,8 @@ public class Archaeopteryx extends Actor {
             // grow up
             this.removeCapability(LifeStage.BABY);
             this.addCapability(LifeStage.ADULT);
+            this.removeCapability(FlyAbility.WALK);
+            this.addCapability(FlyAbility.FLY);
             this.displayChar = 'D';
         }
 

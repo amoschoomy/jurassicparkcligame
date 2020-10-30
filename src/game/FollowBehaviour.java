@@ -35,8 +35,14 @@ public class FollowBehaviour implements Behaviour {
         }
       }
     }}
+    if (here != null && there != null && actor.hasCapability(FlyAbility.FLY)){
+      for(int i = map.locationOf(target).x(); i >map.getXRange().min() ; i--) {
+        if(map.at(i,i).canActorEnter(actor)){
+          return new MoveActorAction(map.at(i,i),"fly");
+        }
+      }
 
-    return null;
+    } return null;
   }
 
   /**

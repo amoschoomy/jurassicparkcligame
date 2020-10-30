@@ -123,7 +123,6 @@ public class BreedBehaviour extends Action implements Behaviour {
         for (int x : map.getXRange()) {
           if (map.at(x, y).containsAnActor()) {
             Actor partner = map.getActorAt(map.at(x, y));
-            // Location partnerLocation = map.locationOf(partner) ;
             if (sameSpeciesDifferentGender(actor, partner)
                 && (actor.hasCapability(LifeStage.ADULT)
                     && partner.hasCapability(LifeStage.ADULT))) {

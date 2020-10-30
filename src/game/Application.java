@@ -66,8 +66,8 @@ public class Application {
     // Place a pair of stegosaurs in the middle of the map
     gameMap.at(32, 1).addActor(new Stegosaur("Stegosaur", "adult", player));
     gameMap.at(32, 5).addActor(new Stegosaur("Stegosaur", "adult", player));
-    //gameMap.at(32, 12).addActor(new Archaeopteryx("Archaeopteryx", "adult", player));
-    gameMap.at(0, 2).addActor(new Agilisaurus("Agilisaurus", "adult", player));
+    gameMap.at(32, 12).addActor(new Archaeopteryx("Archaeopteryx", "adult", player));
+//    gameMap.at(0, 2).addActor(new Agilisaurus("Agilisaurus", "adult", player));
     VendingMachine vm = new VendingMachine();
     vm.addItemsToVendingMachine("Hay", 10);
     vm.addItemsToVendingMachine("Fruit", 15);
