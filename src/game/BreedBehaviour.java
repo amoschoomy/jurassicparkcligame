@@ -45,6 +45,10 @@ public class BreedBehaviour extends Action implements Behaviour {
           retVal = true;
         } else if (actor instanceof Allosaur && partner instanceof Allosaur) {
           retVal = true;
+        }else if (actor instanceof Agilisaurus && partner instanceof Agilisaurus) {
+            retVal = true;
+        }else if (actor instanceof Archaeopteryx && partner instanceof Archaeopteryx) {
+            retVal = true;
         }
       }
     }

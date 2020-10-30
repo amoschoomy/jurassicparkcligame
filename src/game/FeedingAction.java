@@ -59,11 +59,31 @@ public class FeedingAction extends Action {
             + "3) HerbivoreMealkit: "
             + herbivoreMealkit
             + "\n";
+    
+    
+    String omnivoreMenu =
+    		"1) Hay :"
+    	            + hay
+    	            + "\n"
+    	            + "2) Fruit: "
+    	            + fruit
+    	            + "\n"
+    	            + "3) HerbivoreMealkit: "
+    	            + herbivoreMealkit
+    	            + "\n"
+    	            + "4) CarnivoreMealkit: "
+    	            + carnivoreMealkit
+    	            + "\n"
+    	            + "5) Egg: "
+    	            + egg
+    	            + "\n";
 
     if (feedTarget instanceof Stegosaur) {
       description += herbivoreMenu;
     } else if (feedTarget instanceof Allosaur) {
       description += carnivoreMenu;
+    } else if (feedTarget instanceof Agilisaurus) {
+        description += omnivoreMenu;
     } else {
       description += "Only dinosaurs can be feed!";
     }
@@ -80,12 +100,10 @@ public class FeedingAction extends Action {
         Location destination = exit.getDestination();
         if (destination.containsAnActor()) {
           // if theres an actor in the location
-          if (destination.getActor() instanceof Stegosaur) {
+          if (destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Allosaur || destination.getActor() instanceof Agilisaurus) {
             feedTargetLocationList.add(destination);
 
-          } else if (destination.getActor() instanceof Allosaur) {
-            feedTargetLocationList.add(destination);
-          }
+          } 
         }
       }
 
@@ -149,7 +167,7 @@ public class FeedingAction extends Action {
               throw new IllegalArgumentException("Wrong input, chose number 1 - 3");
             }
 
-          } else {
+          } else if(feedTarget instanceof Allosaur) {
             // Allosaur
 
             if (selectedItemNumber == 1) {
@@ -163,7 +181,33 @@ public class FeedingAction extends Action {
             } else {
               throw new IllegalArgumentException("Wrong input, chose number 1 - 2");
             }
-          }
+            
+          }else if(feedTarget instanceof Agilisaurus) {
+              // Agilisaurus
+        	  if (selectedItemNumber == 1) {
+                  // hay
+                  itemStatus = false;
+                  selectedItem = "Hay";
+                } else if (selectedItemNumber == 2) {
+                  // fruit
+                  itemStatus = false;
+                  selectedItem = "Fruit";
+                } else if (selectedItemNumber == 3) {
+                  // herbivore mealkit
+                  itemStatus = false;
+                  selectedItem = "HerbivoreMealkit";
+                } else if (selectedItemNumber == 4) {
+                  // Carnivore Mealkit
+                itemStatus = false;
+                selectedItem = "CarnivoreMealkit";
+                } else if (selectedItemNumber == 5) {
+                // Egg
+                itemStatus = false;
+                selectedItem = "Egg";
+              } else {
+                throw new IllegalArgumentException("Wrong input, chose number 1 - 2");
+              }
+            }
         } catch (IllegalArgumentException e) {
           itemStatus = true;
         }
@@ -171,17 +215,21 @@ public class FeedingAction extends Action {
 
       /*scanner end here*/
 
-      // if (actor instanceof Player) {
-      if (feedTarget instanceof Stegosaur) {
+      
+      
         if (selectedItem.equals("Hay")) {
           for (Item item : actor.getInventory()) {
             if (item instanceof Hay) {
               Hay hay = (Hay) item;
-              ((Stegosaur) feedTarget).eatHay(hay);
+              if (feedTarget instanceof Stegosaur) {
+            	  ((Stegosaur) feedTarget).eatHay(hay);
+              }else if(feedTarget instanceof Agilisaurus) {
+            	  ((Agilisaurus) feedTarget).eatHay(hay);
+              }
               actor.removeItemFromInventory(item);
               ((Player) actor).getEcopoints().gain(10);
               return actor.toString()
-                  + "fed the "
+                  + " fed the "
                   + feedTarget.toString()
                   + " with Hay! Gained 10 eco points";
             }
@@ -192,11 +240,16 @@ public class FeedingAction extends Action {
           for (Item item : actor.getInventory()) {
             if (item instanceof Fruit) {
               Fruit fruit = (Fruit) item;
-              ((Stegosaur) feedTarget).eatFruit(fruit);
+              
+              if (feedTarget instanceof Stegosaur) {
+            	  ((Stegosaur) feedTarget).eatFruit(fruit);
+              }else if(feedTarget instanceof Agilisaurus) {
+            	  ((Agilisaurus) feedTarget).eatFruit(fruit);
+              }
               actor.removeItemFromInventory(item);
               ((Player) actor).getEcopoints().gain(15);
               return actor.toString()
-                  + "fed the "
+                  + " fed the "
                   + feedTarget.toString()
                   + " with Fruit! Gained 15 eco points";
             }
@@ -208,10 +261,15 @@ public class FeedingAction extends Action {
           for (Item item : actor.getInventory()) {
             if (item instanceof MealKit && item.hasCapability(FoodType.HERBIVORES)) {
               MealKit harbivoreMealkit = (MealKit) item;
-              ((Stegosaur) feedTarget).eatMealKit(harbivoreMealkit);
+              
+              if (feedTarget instanceof Stegosaur) {
+            	  ((Stegosaur) feedTarget).eatMealKit(harbivoreMealkit);
+              }else if(feedTarget instanceof Agilisaurus) {
+            	  ((Agilisaurus) feedTarget).eatMealKit(harbivoreMealkit);
+              }
               actor.removeItemFromInventory(item);
               return actor.toString()
-                  + "fed the "
+                  + " fed the "
                   + feedTarget.toString()
                   + " with Herbivore MealKit! The stegosaur foodLevel become 100 now!";
             }
@@ -219,17 +277,21 @@ public class FeedingAction extends Action {
 
           return "Can't find HerbivoreMealKit inside the inventory!";
         }
-      } else {
+     
         if (selectedItem.equals("CarnivoreMealkit")) {
           // mealkit will not gain ecopoints
           for (Item item : actor.getInventory()) {
             if (item instanceof MealKit && item.hasCapability(FoodType.CARNIVORES)) {
               MealKit carnivoreMealkit = (MealKit) item;
-              ((Allosaur) feedTarget).eatMealKit(carnivoreMealkit);
-              ;
+              
+              if (feedTarget instanceof Allosaur) {
+            	  ((Allosaur) feedTarget).eatMealKit(carnivoreMealkit);
+              }else if(feedTarget instanceof Agilisaurus) {
+            	  ((Agilisaurus) feedTarget).eatMealKit(carnivoreMealkit);
+              }
               actor.removeItemFromInventory(item);
               return actor.toString()
-                  + "fed the "
+                  + " fed the "
                   + feedTarget.toString()
                   + " with Carnivore MealKit! The allosaur foodLevel become 100 now!";
             }
@@ -240,15 +302,19 @@ public class FeedingAction extends Action {
           // egg will not gain ecopoints
           for (Item item : actor.getInventory()) {
             if (item instanceof Egg) {
-              Egg egg = (Egg) item;
-              ((Allosaur) feedTarget).eatEgg(egg);
+              Egg egg = (Egg) item;             
+              if (feedTarget instanceof Allosaur) {
+            	  ((Allosaur) feedTarget).eatEgg(egg);
+              }else if(feedTarget instanceof Agilisaurus) {
+            	  ((Agilisaurus) feedTarget).eatEgg(egg);
+              }
               actor.removeItemFromInventory(item);
-              return actor.toString() + "fed the " + feedTarget.toString() + " with Eggs!";
+              return actor.toString() + " fed the " + feedTarget.toString() + " with Eggs!";
             }
           }
           return "Can't find Egg inside the inventory!";
         }
-      }
+      
     } else {
 
       throw new IllegalArgumentException("Only Players allowed to feed ");

@@ -134,8 +134,60 @@ public class HungryBehaviour extends Action implements Behaviour {
           }
         }
       }
+      	//For Agilisaurus
+    } else if ((actor instanceof Agilisaurus) && (isDinosaurCorpseAround(actor, map) ||isFruitAround(actor, map) || isGrassAround(actor, map))) {
+        for (Exit exit : currentPosition.getExits()) {
+          Location destination = exit.getDestination();
+          if (destination.canActorEnter(actor)) {
+            // Hunt for corpse
+            for (Item item : destination.getItems()) {
+              if (item instanceof Corpse) {
+                Corpse corpse = (Corpse) item;
+                map.moveActor(actor, destination);
+                Agilisaurus agilisaurus = (Agilisaurus) actor;
+                agilisaurus.eatCorpse(corpse);
+                System.out.println(agilisaurus + " ate corpse");
+                destination.removeItem(item);
+                return this;
+                
+              }else if(item instanceof Fruit) {
+            	  // Hunt for fruit
+                  Fruit fruit = (Fruit) item;
+                  map.moveActor(actor, destination);
+                  Agilisaurus agilisaurus = (Agilisaurus) actor;
+                  agilisaurus.eatFruit(fruit);
+                  System.out.println(agilisaurus + " eats Fruit");
+                  destination.removeItem(item);
+                  return this;
+                }
+                  
+            }
+            
+            // Hunt for grass
+            if (destination.getGround() instanceof Grass) {
+              Grass grass = (Grass) destination.getGround();
+              map.moveActor(actor, destination);
+              Agilisaurus agilisaurus = (Agilisaurus) actor;
+              agilisaurus.grazeGrass(grass);
+              System.out.println(agilisaurus + " grazed Grass");
+              destination.setGround(new Dirt());
+              return this;
+            }
+            
+      
+            
+          }
+        }
 
-    } else {
+      } 
+    
+    
+    
+    
+    
+    
+    
+    else {
       // if no foods around , just wander
       WanderBehaviour wander = new WanderBehaviour();
       return wander.getAction(actor, map);

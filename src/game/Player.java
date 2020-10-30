@@ -47,7 +47,7 @@ public class Player extends Actor {
       Location destination = exit.getDestination();
       if (destination.containsAnActor()) {
         if (destination.getActor() instanceof Stegosaur
-            || destination.getActor() instanceof Allosaur) {
+            || destination.getActor() instanceof Allosaur || destination.getActor() instanceof Agilisaurus || destination.getActor() instanceof Archaeopteryx) {
           closeDinosaur++;
         }
       }

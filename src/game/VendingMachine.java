@@ -66,6 +66,8 @@ public class VendingMachine extends Item {
     else if (item.equals("Herbivore")) item1 = new MealKit(FoodType.HERBIVORES);
     else if (item.equals("Allosaur Egg")) item1 = new Egg("Allosaur", false, owner);
     else if (item.equals("Stegosaur Egg")) item1 = new Egg("Stegosaur", false, owner);
+    else if (item.equals("Agilisaurus Egg")) item1 = new Egg("Agilisaurus", false, owner);
+    else if (item.equals("Archaeopteryx Egg")) item1 = new Egg("Archaeopteryx", false, owner);
     else {
       item1 = null;
     }

@@ -12,7 +12,7 @@ public class Egg extends PortableItem {
 
   public Egg(String species, boolean hatchable, Player owner) {
     super("Egg", 'E');
-    if (species == "Stegosaur" || species == "Allosaur") {
+    if (species == "Stegosaur" || species == "Allosaur" || species == "Agilisaurus" || species == "Archaeopteryx") {
       this.species = species;
     } else {
       throw new IllegalArgumentException("Species only can be stegosaur or allosaur");
@@ -42,17 +42,29 @@ public class Egg extends PortableItem {
       if (!currentLocation.containsAnActor()) {
         // need to wait for no dinosaur then only hatched a new dinosaur
         currentLocation.removeItem(this); //
-        if (this.species == "Stegosaur") {
+        if (this.species.equals("Stegosaur")) {
           // it is stegosaur
           Stegosaur newStegosaurBaby = new Stegosaur("Stegosaur", "baby", owner);
           currentLocation.addActor(newStegosaurBaby);
           owner.gainEcopoints(100);
-        } else {
+        } else if(this.species.equals("Allosaur")) {
           // it is allosaur
           Allosaur newAllosaurBaby = new Allosaur("Allosaur", "baby", owner);
           currentLocation.addActor(newAllosaurBaby);
           owner.gainEcopoints(1000);
-        }
+        } else if(this.species.equals("Agilisaurus")) {
+            // it is agilisaurus
+            Agilisaurus newAgilisaurusBaby = new Agilisaurus("Agilisaurus", "baby", owner);
+            currentLocation.addActor(newAgilisaurusBaby);
+            owner.gainEcopoints(1000);
+          }else if(this.species.equals("Archaeopteryx")) {
+              // it is archaeopteryx
+        	  Archaeopteryx newArchaeopteryxBaby = new Archaeopteryx("Archaeopteryx", "baby", owner);
+              currentLocation.addActor(newArchaeopteryxBaby);
+              owner.gainEcopoints(1000);
+          } else {
+              throw new IllegalArgumentException("Egg Species did not initialised correctly");
+          }
       }
     }
   }

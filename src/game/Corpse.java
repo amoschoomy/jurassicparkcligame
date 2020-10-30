@@ -5,8 +5,14 @@ import edu.monash.fit2099.engine.Location;
 
 /** A class to represent dinosaur dead body. */
 public class Corpse extends Item {
-  public Corpse() {
+  private String species ;
+  public Corpse(String species) {
     super("Corpse", 'C', false);
+    this.species = species ; 
+  }
+  
+  public String getSpecies() {
+	  return this.species ; 
   }
 
   @Override
