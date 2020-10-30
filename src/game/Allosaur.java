@@ -179,7 +179,6 @@ public class Allosaur extends Actor {
     }
 
     if(this.waterLevel==0){
-      this.behaviour=null;
       this.Thirsting();
     }else{
       this.thirstLevel=0;

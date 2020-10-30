@@ -15,7 +15,7 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isFruitAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-    if (currentPosition!=null)
+    if (currentPosition==null)
       return false;
     int closeFruit = 0;
     for (Exit exit : currentPosition.getExits()) {
@@ -38,7 +38,7 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isGrassAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-    if (currentPosition!=null)
+    if (currentPosition==null)
       return false;
     int closeGrass = 0;
     for (Exit exit : currentPosition.getExits()) {
@@ -61,7 +61,7 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isDinosaurCorpseAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-    if (currentPosition!=null)
+    if (currentPosition==null)
       return false;
     int closeDino = 0;
     for (Exit exit : currentPosition.getExits()) {
@@ -111,6 +111,7 @@ public class HungryBehaviour extends Action implements Behaviour {
     }
     // For Stegosaur
     if ((actor instanceof Stegosaur) && (isFruitAround(actor, map) || isGrassAround(actor, map))) {
+  
       for (Exit exit : currentPosition.getExits()) {
         Location destination = exit.getDestination();
         if (destination.canActorEnter(actor)) {
@@ -212,15 +213,10 @@ public class HungryBehaviour extends Action implements Behaviour {
       return this;
     }
     
-    
-    
-    
-    
-    
-    
     else {
       // if no foods around , just wander
       WanderBehaviour wander = new WanderBehaviour();
+      System.out.println(actor.toString()+" say no fooud source found around so keep wander");   
       return wander.getAction(actor, map);
     }
     return null; // if all place occupied and can't go

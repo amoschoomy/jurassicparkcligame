@@ -131,7 +131,7 @@ public class Archaeopteryx extends Actor {
         }
 
         if (this.foodLevel == 0) {
-            this.behaviour = null;
+           
             this.Starving();
         } else {
             this.starvationLevel = 0;
@@ -142,7 +142,7 @@ public class Archaeopteryx extends Actor {
         }
 
         if(this.waterLevel==0){
-            this.behaviour=null;
+            
             this.Thirsting();
         }else{
             this.thirstLevel=0;

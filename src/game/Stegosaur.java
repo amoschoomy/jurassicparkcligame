@@ -32,7 +32,7 @@ public class Stegosaur extends Actor {
     if (lifeStage == "adult") {
       this.addCapability(LifeStage.ADULT);
       this.age = 30;
-      this.foodLevel = 50;
+      this.foodLevel = 30;
       this.waterLevel=50;
       this.displayChar = 'D';
     } else if (lifeStage == "baby") {
@@ -158,7 +158,6 @@ public class Stegosaur extends Actor {
     }
 
     if (this.foodLevel == 0) {
-      this.behaviour = null;
       this.Starving();
     } else {
       this.starvationLevel = 0;
@@ -169,7 +168,7 @@ public class Stegosaur extends Actor {
     }
 
     if(this.waterLevel==0){
-      this.behaviour=null;
+      
       this.Thirsting();
     }else{
       this.thirstLevel=0;

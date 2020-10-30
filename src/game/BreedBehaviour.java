@@ -128,6 +128,7 @@ public class BreedBehaviour extends Action implements Behaviour {
                     && partner.hasCapability(LifeStage.ADULT))) {
               // follow the partner
               FollowBehaviour follow = new FollowBehaviour(partner);
+              System.out.println(actor.toString()+" start following somebody to mate!");
               return follow.getAction(actor, map);
             }
           }
@@ -138,7 +139,7 @@ public class BreedBehaviour extends Action implements Behaviour {
       WanderBehaviour wander = new WanderBehaviour();
       return wander.getAction(actor, map);
     }}
-
+    System.out.println(actor.toString()+" say No Partner found in map so keep wander");
     WanderBehaviour wander = new WanderBehaviour();
     return wander.getAction(actor, map);
   }
