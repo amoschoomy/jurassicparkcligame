@@ -289,6 +289,9 @@ public class FeedingAction extends Action {
               }else if(feedTarget instanceof Agilisaurus) {
             	  ((Agilisaurus) feedTarget).eatMealKit(carnivoreMealkit);
               }
+              else if(feedTarget instanceof Archaeopteryx){
+                ((Archaeopteryx)feedTarget).eatMealKit(carnivoreMealkit);
+              }
               actor.removeItemFromInventory(item);
               return actor.toString()
                   + " fed the "

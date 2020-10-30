@@ -15,6 +15,8 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isFruitAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
+    if (currentPosition!=null)
+      return false;
     int closeFruit = 0;
     for (Exit exit : currentPosition.getExits()) {
       Location destination = exit.getDestination();
@@ -36,6 +38,8 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isGrassAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
+    if (currentPosition!=null)
+      return false;
     int closeGrass = 0;
     for (Exit exit : currentPosition.getExits()) {
       Location destination = exit.getDestination();
@@ -57,6 +61,8 @@ public class HungryBehaviour extends Action implements Behaviour {
    */
   private boolean isDinosaurCorpseAround(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
+    if (currentPosition!=null)
+      return false;
     int closeDino = 0;
     for (Exit exit : currentPosition.getExits()) {
       Location destination = exit.getDestination();
@@ -100,7 +106,9 @@ public class HungryBehaviour extends Action implements Behaviour {
   @Override
   public Action getAction(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-
+    if (currentPosition==null){
+      return null;
+    }
     // For Stegosaur
     if ((actor instanceof Stegosaur) && (isFruitAround(actor, map) || isGrassAround(actor, map))) {
       for (Exit exit : currentPosition.getExits()) {
