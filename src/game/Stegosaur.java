@@ -219,9 +219,15 @@ public class Stegosaur extends Actor {
       // stegoosaur die
       this.removeCapability(LiveStatus.LIVE);
       this.addCapability(LiveStatus.DEAD);
-      map.locationOf(this).addItem(new Corpse());
+      map.locationOf(this).addItem(new Corpse("Stegosaur"));
       map.removeActor(this);
     }
+    
+    if(this.foodLevel <=0) {
+    	System.out.println("Stegosaur is unwake due to hungry now.");
+    	return new DoNothingAction();
+    }
+    
     Action wander = behaviour.getAction(this, map);
     if (wander != null) {
       return wander;

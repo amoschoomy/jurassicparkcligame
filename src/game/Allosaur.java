@@ -99,7 +99,11 @@ public class Allosaur extends Actor {
    * @param corpse a Corpse object to be eaten by the allosaur
    */
   public void eatCorpse(Corpse corpse) {
-    raiseFoodLevel(50);
+	if(corpse.getSpecies().equals("Agilisaurus")) {
+		raiseFoodLevel(20);
+	}else {
+		raiseFoodLevel(50);
+	}
   }
 
   public void drinkWater(){
@@ -128,7 +132,7 @@ public class Allosaur extends Actor {
     for (Exit exit : currentPosition.getExits()) {
       Location destination = exit.getDestination();
       if (destination.containsAnActor()) {
-        if (destination.getActor() instanceof Stegosaur) {
+        if (destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Agilisaurus) {
           closeOpponent++;
         }
       }
@@ -222,7 +226,7 @@ public class Allosaur extends Actor {
       for (Exit exit : currentPosition.getExits()) {
         Location destination = exit.getDestination();
         if (destination.containsAnActor()) {
-          if (destination.getActor() instanceof Stegosaur
+          if ((destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Agilisaurus)
               && closeOpponent < 1
               && Math.random() > 0.1) {
             destination.getActor().hurt(50);
@@ -256,9 +260,15 @@ public class Allosaur extends Actor {
     if (this.starvationLevel == 20 || this.hitPoints == 0|this.thirstLevel==20) {
       this.removeCapability(LiveStatus.LIVE);
       this.addCapability(LiveStatus.DEAD);
-      map.locationOf(this).addItem(new Corpse());
+      map.locationOf(this).addItem(new Corpse("Allosaur"));
       map.removeActor(this);
     }
+    
+    if(this.foodLevel <=0) {
+    	System.out.println("Allosaur is unwake due to hungry now.");
+    	return new DoNothingAction();
+    }
+    
     Action wander = behaviour.getAction(this, map);
     if (wander != null) {
       return wander;
