@@ -14,6 +14,8 @@ public class Water extends Ground {
 
     @Override
     public boolean canActorEnter(Actor actor) {
+        if (actor instanceof Archaeopteryx)
+            return true;
         return false;
     }
 }

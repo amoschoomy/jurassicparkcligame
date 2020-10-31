@@ -31,8 +31,8 @@ public class Archaeopteryx extends Actor {
             this.age = 30;
             this.addCapability(LifeStage.ADULT);
             this.addCapability(FlyAbility.FLY);// adult can fly
-            this.foodLevel = 20;
-            this.waterLevel=50;
+            this.foodLevel = 60;
+            this.waterLevel=10;
             this.displayChar = 'A';
         } else if (lifeStage == "baby") {
             // baby stegosaur

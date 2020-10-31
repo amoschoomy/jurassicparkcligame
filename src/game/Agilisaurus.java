@@ -31,8 +31,8 @@ public class Agilisaurus extends Actor {
         if (lifeStage == "adult") {
             this.age = 30;
             this.addCapability(LifeStage.ADULT);
-            this.foodLevel = 20;
-            this.waterLevel=50;
+            this.foodLevel = 80;
+            this.waterLevel=10;
             this.displayChar = 'L';
         } else if (lifeStage == "baby") {
             // baby Agilisaurus
@@ -178,7 +178,6 @@ public class Agilisaurus extends Actor {
         }else{
             this.thirstLevel=0;
         }
-        System.out.println(this.behaviour);
     }
 
     /** This method is used to show if the Agilisaurus is pregnant */

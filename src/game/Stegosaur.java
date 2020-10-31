@@ -32,8 +32,8 @@ public class Stegosaur extends Actor {
     if (lifeStage == "adult") {
       this.addCapability(LifeStage.ADULT);
       this.age = 30;
-      this.foodLevel = 30;
-      this.waterLevel=50;
+      this.foodLevel = 60;
+      this.waterLevel=20;
       this.displayChar = 'D';
     } else if (lifeStage == "baby") {
       // baby stegosaur

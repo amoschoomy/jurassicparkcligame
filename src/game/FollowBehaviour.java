@@ -24,6 +24,15 @@ public class FollowBehaviour implements Behaviour {
 
     Location here = map.locationOf(actor);
     Location there = map.locationOf(target);
+    if (here != null && there != null && actor.hasCapability(FlyAbility.FLY)){
+      for (int i = map.locationOf(target).x(); i > map.getXRange().min(); i--)
+        for(int j =map.locationOf(target).y(); j > map.getYRange().min(); j--) {
+          if(map.at(i,j).canActorEnter(actor)){
+            return new MoveActorAction(map.at(i,j),"fly");
+          }
+        }
+
+    }
     if (here!=null && there !=null){
     int currentDistance = distance(here, there);
     for (Exit exit : here.getExits()) {
@@ -35,17 +44,7 @@ public class FollowBehaviour implements Behaviour {
         }
       }
     }}
-    if (here != null && there != null && actor.hasCapability(FlyAbility.FLY)){
-      //      for(int i = map.getXRange().max(); i >x ; i--) {
-      //        for(int j = map.getYRange().max(); j >y ; j++) {
-      for (int i = map.locationOf(target).x(); i > map.getXRange().min(); i--)
-        for(int j =map.locationOf(target).y(); j > map.getYRange().min(); j--) {
-          if(map.at(i,j).canActorEnter(actor)){
-            return new MoveActorAction(map.at(i,j),"fly");
-        }
-      }
-
-    } return null;
+    return null;
   }
 
   /**
