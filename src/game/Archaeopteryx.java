@@ -95,7 +95,11 @@ public class Archaeopteryx extends Actor {
      * @param corpse a Corpse object to be eaten by the allosaur
      */
     public void eatCorpse(Corpse corpse) {
-        raiseFoodLevel(50);
+    	if(corpse.getSpecies().equals("Agilisaurus")) {
+    		raiseFoodLevel(20);
+    	}else {
+    		raiseFoodLevel(50);
+    	}
     }
 
     public void drinkWater(){

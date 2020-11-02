@@ -131,7 +131,11 @@ public class Agilisaurus extends Actor {
      * @param corpse a Corpse object to be eaten by the Agilisaurus
      */
     public void eatCorpse(Corpse corpse) {
-        raiseFoodLevel(50);
+    	if(corpse.getSpecies().equals("Agilisaurus")) {
+    		raiseFoodLevel(20);
+    	}else {
+    		raiseFoodLevel(50);
+    	}
     }
 
     public void drinkWater(){
