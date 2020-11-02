@@ -12,7 +12,9 @@ public class Player extends Actor {
   private Menu menu = new Menu();
   private Ecopoints ecopoints = new Ecopoints();
   private ArrayList<GameMap> maps=new ArrayList<>();
-
+  private String gameMode ; 
+  private int moves = 0 ; // when the game start it will set the number of moves allow for player
+  private int TotalEcoPointToWin = 0 ; 
   /**
    * Constructor.
    *
@@ -27,6 +29,32 @@ public class Player extends Actor {
 
   @Override
   public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+	    
+	  if(this.gameMode.equals("Challenge")) {
+		  //Every turn player move add 1
+		  this.moves -=1 ;
+		  
+		  //if moves finish
+		  if(this.moves+1 ==0) {
+			  System.out.println("Player moves has been finished...");
+			  if(this.ecopoints.getPoints() >= this.TotalEcoPointToWin) {
+				  System.out.println("Congratulations, player got enough ecopoints and win the game!");
+			  }else {
+				  System.out.println("The player did not get enough ecopoints and lose the game!");
+			  }
+			  return new WinLoseAction() ; 
+		  }
+		  
+		  //if got enough ecopoints to win
+		  if(this.ecopoints.getPoints() >= this.TotalEcoPointToWin) {
+			  System.out.println("Congratulations, player got enough ecopoints within the moves and win the game!");
+			  return new WinLoseAction() ; 
+		  }
+	  }
+	  
+	  
+	  
+	  System.out.println("Player ecopoint is: " + getEcopoints());
     // Handle multi-turn Actions
     if (map.locationOf(this).getGround() instanceof Grass) {
       actions.add(new HarvestAction((Grass) map.locationOf(this).getGround()));
@@ -64,7 +92,8 @@ public class Player extends Actor {
     if (currentPosition.x()==map.getXRange().max()&&currentPosition.y()==map.getYRange().max() && map==maps.get(1)){
       actions.add(new MoveActorAction(maps.get(0).at(maps.get(0).getXRange().min(),maps.get(0).getYRange().min()),"Right","Q"));
     }
-
+    
+    actions.add(new GameModeAction());
     if (lastAction.getNextAction() != null) return lastAction.getNextAction();
     return menu.showMenu(this, actions, display);
   }
@@ -88,6 +117,30 @@ public class Player extends Actor {
   }
   public void addMapToGameMaps(GameMap map){
     maps.add(map);
+  }
+  
+  public String getPlayerGameMode() {
+	  return gameMode ;  
+  }
+  
+  public void setPlayerGameMode(String gameMode) {
+	  this.gameMode = gameMode ; 
+  }
+  
+  public int getPlayerMove() {
+	  return moves ; 
+  }
+  
+  public void setPlayerMove(int move) {
+	  this.moves = move ; 
+  }
+  
+  public int getTotalEcoPointToWin() {
+	  return TotalEcoPointToWin ;  
+  }
+  
+  public void setTotalEcoPointToWin(int totalEcoPointToWin) {
+	  this.TotalEcoPointToWin = totalEcoPointToWin ; 
   }
 
 }
