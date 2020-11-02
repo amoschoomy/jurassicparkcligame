@@ -86,11 +86,11 @@ public class Player extends Actor {
 
     if (currentPosition.x()==map.getXRange().min()&&currentPosition.y()==map.getYRange().min() && map==maps.get(0)){
 
-      actions.add(new MoveActorAction(maps.get(1).at(maps.get(1).getXRange().max(),maps.get(1).getYRange().max()),"Left","Q"));
+      actions.add(new MoveActorAction(maps.get(1).at(maps.get(1).getXRange().max(),maps.get(1).getYRange().max()),"North","Q"));
     }
 
     if (currentPosition.x()==map.getXRange().max()&&currentPosition.y()==map.getYRange().max() && map==maps.get(1)){
-      actions.add(new MoveActorAction(maps.get(0).at(maps.get(0).getXRange().min(),maps.get(0).getYRange().min()),"Right","Q"));
+      actions.add(new MoveActorAction(maps.get(0).at(maps.get(0).getXRange().min(),maps.get(0).getYRange().min()),"South","Q"));
     }
     
     actions.add(new GameModeAction());
