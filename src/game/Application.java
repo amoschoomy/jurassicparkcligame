@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.World;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -92,6 +93,7 @@ public class Application {
     	//Chose game mode
     	boolean gameModeStatus = false ; 
     	while(!gameModeStatus) {
+    		try {
 	    	System.out.println("Please select a game mode:" + "\n" + "1)Challenge" + "\n" + "2)Sandbox" + "\n" + "3)Quit");
 	        int GameMode = scanner.nextInt() ; 
 	        System.out.println("Your comamnd is: " + GameMode);
@@ -122,6 +124,12 @@ public class Application {
 	        else {
 	        	System.out.println("Acceptable input are 1/2/3, please type again...");
 	        }
+    		}
+    		catch (InputMismatchException exception) 
+    		{ 
+    		    System.out.println("Integers only, please."); 
+    		    scanner.next();
+    		} 
         
     	}
         //Run the game
@@ -130,6 +138,7 @@ public class Application {
     	//ask again when game end
     	boolean playAgainStatus = false ; 
     	while(!playAgainStatus) {
+    		try {
 	    	System.out.println("Do you want to play again? Type 1 as Yes,0 as No");
 	    	int c = scanner.nextInt() ; 
 	    	if(c==1) {
@@ -142,7 +151,13 @@ public class Application {
 	    	}else {
 	    		System.out.println("Acceptable input are 0 or 1, please type again...");
 	    	}
-    	
+	    	
+    		}
+    		catch (InputMismatchException exception) 
+    		{ 
+    		    System.out.println("Integers only, please."); 
+    		    scanner.next();
+    		} 
     	}
     }
     

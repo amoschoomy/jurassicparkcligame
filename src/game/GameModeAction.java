@@ -1,5 +1,6 @@
 package game;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import edu.monash.fit2099.engine.Action;
@@ -7,7 +8,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
 /**
- * Game Mode action to handle player game mode 
+ * Just an action to exit/change the Game Mode when in game
  *
  * @author Foong Shee Yao
  */
@@ -21,6 +22,7 @@ public class GameModeAction extends Action {
     	boolean stat = false ; 
     	String s = "";
     	while(!stat) {
+    		try {
 	    	int DoYouWantToExit = scanner.nextInt() ;
 	    	if(DoYouWantToExit == 0) {
 	    		s = "Back to the Game!" ; 
@@ -32,6 +34,12 @@ public class GameModeAction extends Action {
 	    	}else {
 	    		System.out.println("Please type 0 or 1 only as game mode changing commands...type again"); 
 	    	}
+    		}
+    		catch (InputMismatchException exception) 
+    		{ 
+    		    System.out.println("Integers only, please."); 
+    		    scanner.next();
+    		} 
     	}
     	return s ;
     } else {

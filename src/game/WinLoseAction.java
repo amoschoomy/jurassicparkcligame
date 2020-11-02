@@ -5,6 +5,11 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * Just an action to return when play win or lose in Challenge Game Mode 
+ *
+ * @author Foong Shee Yao
+ */
 public class WinLoseAction extends Action {
 
 	@Override

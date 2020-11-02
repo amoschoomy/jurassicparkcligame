@@ -3,6 +3,7 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+/** A omnivore dinosaur. */
 public class Agilisaurus extends Actor {
 
     private Behaviour behaviour;
@@ -37,8 +38,8 @@ public class Agilisaurus extends Actor {
         } else if (lifeStage == "baby") {
             // baby Agilisaurus
             this.addCapability(LifeStage.BABY);
-            this.foodLevel = 10;
-            this.waterLevel=10;
+            this.foodLevel = 50;
+            this.waterLevel=50;
         } else {
             throw new IllegalArgumentException("life stage only can be adult or baby");
         }
