@@ -13,16 +13,11 @@ import edu.monash.fit2099.engine.GameMap;
  */
 public class GameModeAction extends Action {
   
-
-  public GameModeAction() {
-    
-  }
-
   @Override
   public String execute(Actor actor, GameMap map) {
     if (actor instanceof Player) {
     	Scanner scanner = new Scanner(System.in) ; 
-    	System.out.println("Are you sure you want to exit the current game mode?y:1/n:0");   	 
+    	System.out.println("Are you sure you want to exit the current game mode? Type 1 as Yes,0 as No");   	 
     	boolean stat = false ; 
     	String s = "";
     	while(!stat) {

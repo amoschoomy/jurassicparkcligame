@@ -130,7 +130,7 @@ public class Application {
     	//ask again when game end
     	boolean playAgainStatus = false ; 
     	while(!playAgainStatus) {
-	    	System.out.println("Do you want to play again? y:1/n:0");
+	    	System.out.println("Do you want to play again? Type 1 as Yes,0 as No");
 	    	int c = scanner.nextInt() ; 
 	    	if(c==1) {
 	    		System.out.println("Restarting game...");
