@@ -24,6 +24,8 @@ public class FollowBehaviour implements Behaviour {
 
     Location here = map.locationOf(actor);
     Location there = map.locationOf(target);
+
+    //For dinasours hat can fly
     if (here != null && there != null && actor.hasCapability(FlyAbility.FLY)){
       for (int i = map.locationOf(target).x(); i > map.getXRange().min(); i--)
         for(int j =map.locationOf(target).y(); j > map.getYRange().min(); j--) {

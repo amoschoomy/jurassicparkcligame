@@ -75,13 +75,23 @@ public class HungryBehaviour extends Action implements Behaviour {
     return closeDino > 0;
   }
 
-  private HashMap<String, Integer> findDinasour(Actor actor,GameMap map) {
+  /**
+   * Find a dinasour in the map
+   *
+   * @param actor Actor in the game
+   * @param map GameMap of the map of the game
+   * @return a HashMap type of <String,Integer> that returns the coordinates of the location or a
+   *     status key if it fails
+   */
+  private HashMap<String, Integer> findDinosaur(Actor actor, GameMap map) {
     int x = map.getXRange().min();
     int y = map.getYRange().min();
     HashMap<String, Integer> coordinates = new HashMap<String, Integer>(2);
     for (int i = map.getXRange().max(); i > x; i--) {
       for (int j = map.getYRange().max(); j > y; j--) {
-        if (map.at(i,j).getActor()!=null&&!(map.at(i, j).getActor() instanceof Player) &&map.at(i,j).getActor()!=actor) {
+        if (map.at(i, j).getActor() != null
+            && !(map.at(i, j).getActor() instanceof Player)
+            && map.at(i, j).getActor() != actor) {
           coordinates.put("x", i);
           coordinates.put("y", j);
           return coordinates;
@@ -91,9 +101,18 @@ public class HungryBehaviour extends Action implements Behaviour {
     if (!coordinates.containsKey("x")) {
       coordinates.put("status", -1);
       return coordinates;
-    }return coordinates;
+    }
+    return coordinates;
   }
 
+  /**
+   * Hunt a corpse in the game
+   *
+   * @param actor Actor in the game
+   * @param map GameMap of the object
+   * @return a HashMap type of <String,Integer> that returns the coordinates of the location or a
+   *     status key if it fails
+   */
   private HashMap<String, Integer> huntCorpse(Actor actor, GameMap map) {
     int x = map.getXRange().min();
     int y = map.getYRange().min();
@@ -120,11 +139,11 @@ public class HungryBehaviour extends Action implements Behaviour {
 
     getAction(actor, map);
     return actor
-            + " at ("
-            + map.locationOf(actor).x()
-            + ","
-            + map.locationOf(actor).y()
-            + ") is getting hungry!";
+        + " at ("
+        + map.locationOf(actor).x()
+        + ","
+        + map.locationOf(actor).y()
+        + ") is getting hungry!";
   }
 
   @Override
@@ -226,7 +245,10 @@ public class HungryBehaviour extends Action implements Behaviour {
           }
         }
       }
-    } else if (actor.hasCapability(FlyAbility.FLY) && isDinosaurCorpseAround(actor, map)) {
+
+    }
+    // For Archaepytroex and if corpse around dinasour
+    else if (actor.hasCapability(FlyAbility.FLY) && isDinosaurCorpseAround(actor, map)) {
       for (Exit exit : currentPosition.getExits()) {
         Location destination = exit.getDestination();
         if (destination.canActorEnter(actor)) {
@@ -244,29 +266,31 @@ public class HungryBehaviour extends Action implements Behaviour {
         }
       }
 
-    } else if (actor.hasCapability(FlyAbility.FLY)
-        && !huntCorpse(actor, map).containsKey("status")) {
+    }
+    // Else archaepotyrex might choose to hunt corpse
+    else if (actor.hasCapability(FlyAbility.FLY) && !huntCorpse(actor, map).containsKey("status")) {
       int x = huntCorpse(actor, map).get("x");
       int y = huntCorpse(actor, map).get("y");
       for (int i = x; i > map.getXRange().min(); i--)
         for (int j = y; j > map.getYRange().min(); j--) {
           if (map.at(i, j).canActorEnter(actor)) {
             map.moveActor(actor, map.at(i, j));
-            i=map.getXRange().min();
-            j=map.getYRange().min();
+            i = map.getXRange().min();
+            j = map.getYRange().min();
           }
         }
       System.out.println(actor.toString() + " hunting for corpse and dinasours");
       return this;
-    } else if (actor.hasCapability(FlyAbility.FLY) && findDinasour(actor, map).containsKey("status")==false) {
-      int x = findDinasour(actor,map).get("x");
-      int y = findDinasour(actor,map).get("y");
+    } else if (actor.hasCapability(FlyAbility.FLY)
+        && findDinosaur(actor, map).containsKey("status") == false) {
+      int x = findDinosaur(actor, map).get("x");
+      int y = findDinosaur(actor, map).get("y");
       for (int i = x; i > map.getXRange().min(); i--)
         for (int j = y; j > map.getYRange().min(); j--) {
           if (map.at(i, j).canActorEnter(actor)) {
             map.moveActor(actor, map.at(i, j));
-            i=map.getXRange().min();
-            j=map.getYRange().min();
+            i = map.getXRange().min();
+            j = map.getYRange().min();
           }
         }
       System.out.println(actor.toString() + " hunting for corpse and dinasours");
@@ -283,4 +307,5 @@ public class HungryBehaviour extends Action implements Behaviour {
   @Override
   public String menuDescription(Actor actor) {
     return "";
-}}
+  }
+}

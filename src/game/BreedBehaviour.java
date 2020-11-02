@@ -45,10 +45,10 @@ public class BreedBehaviour extends Action implements Behaviour {
           retVal = true;
         } else if (actor instanceof Allosaur && partner instanceof Allosaur) {
           retVal = true;
-        }else if (actor instanceof Agilisaurus && partner instanceof Agilisaurus) {
-            retVal = true;
-        }else if (actor instanceof Archaeopteryx && partner instanceof Archaeopteryx) {
-            retVal = true;
+        } else if (actor instanceof Agilisaurus && partner instanceof Agilisaurus) {
+          retVal = true;
+        } else if (actor instanceof Archaeopteryx && partner instanceof Archaeopteryx) {
+          retVal = true;
         }
       }
     }
@@ -78,68 +78,69 @@ public class BreedBehaviour extends Action implements Behaviour {
   @Override
   public Action getAction(Actor actor, GameMap map) {
     Location currentPosition = map.locationOf(actor);
-    if (currentPosition!=null){
+    if (currentPosition != null) {
       if (isOppositeGenderAround(actor, map)) {
-      for (Exit exit : currentPosition.getExits()) {
-        Location destination = exit.getDestination();
-        if (destination.containsAnActor()) {
-          Actor partner = destination.getActor();
-          if (sameSpeciesDifferentGender(actor, partner)) {
-            if (actor.hasCapability(LifeStage.ADULT) && partner.hasCapability(LifeStage.ADULT)) {
-              // mating
-              if (actor.hasCapability(Gender.FEMALE)) {
-                // actor is the female among the couple
-                actor.removeCapability(LifeStage.ADULT);
-                actor.addCapability(LifeStage.PREGNANT);
-                System.out.println(
-                    actor
-                        + " at ("
-                        + map.locationOf(actor).x()
-                        + ","
-                        + map.locationOf(actor).y()
-                        + ") is breed successful and pregnant!");
-              } else {
-                // partner is the female among the couple
-                partner.removeCapability(LifeStage.ADULT);
-                partner.addCapability(LifeStage.PREGNANT);
-                System.out.println(
-                    partner
-                        + " at ("
-                        + map.locationOf(partner).x()
-                        + ","
-                        + map.locationOf(partner).y()
-                        + ") is breed successful and pregnant!");
+        for (Exit exit : currentPosition.getExits()) {
+          Location destination = exit.getDestination();
+          if (destination.containsAnActor()) {
+            Actor partner = destination.getActor();
+            if (sameSpeciesDifferentGender(actor, partner)) {
+              if (actor.hasCapability(LifeStage.ADULT) && partner.hasCapability(LifeStage.ADULT)) {
+                // mating
+                if (actor.hasCapability(Gender.FEMALE)) {
+                  // actor is the female among the couple
+                  actor.removeCapability(LifeStage.ADULT);
+                  actor.addCapability(LifeStage.PREGNANT);
+                  System.out.println(
+                      actor
+                          + " at ("
+                          + map.locationOf(actor).x()
+                          + ","
+                          + map.locationOf(actor).y()
+                          + ") is breed successful and pregnant!");
+                } else {
+                  // partner is the female among the couple
+                  partner.removeCapability(LifeStage.ADULT);
+                  partner.addCapability(LifeStage.PREGNANT);
+                  System.out.println(
+                      partner
+                          + " at ("
+                          + map.locationOf(partner).x()
+                          + ","
+                          + map.locationOf(partner).y()
+                          + ") is breed successful and pregnant!");
+                }
+
+                return this;
               }
-
-              return this;
             }
           }
         }
-      }
 
-    } else {
-      // no opposite gender around, check other opposite gender partner in the gamemap
-      for (int y : map.getYRange()) {
-        for (int x : map.getXRange()) {
-          if (map.at(x, y).containsAnActor()) {
-            Actor partner = map.getActorAt(map.at(x, y));
-            if (sameSpeciesDifferentGender(actor, partner)
-                && (actor.hasCapability(LifeStage.ADULT)
-                    && partner.hasCapability(LifeStage.ADULT))) {
-              // follow the partner
-              FollowBehaviour follow = new FollowBehaviour(partner);
-              System.out.println(actor.toString()+" start following somebody to mate!");
-              return follow.getAction(actor, map);
+      } else {
+        // no opposite gender around, check other opposite gender partner in the gamemap
+        for (int y : map.getYRange()) {
+          for (int x : map.getXRange()) {
+            if (map.at(x, y).containsAnActor()) {
+              Actor partner = map.getActorAt(map.at(x, y));
+              if (sameSpeciesDifferentGender(actor, partner)
+                  && (actor.hasCapability(LifeStage.ADULT)
+                      && partner.hasCapability(LifeStage.ADULT))) {
+                // follow the partner
+                FollowBehaviour follow = new FollowBehaviour(partner);
+                System.out.println(actor.toString() + " start following somebody to mate!");
+                return follow.getAction(actor, map);
+              }
             }
           }
         }
-      }
 
-      // if no other actor , just wander
-      WanderBehaviour wander = new WanderBehaviour();
-      return wander.getAction(actor, map);
-    }}
-    System.out.println(actor.toString()+" say No Partner found in map so keep wander");
+        // if no other actor , just wander
+        WanderBehaviour wander = new WanderBehaviour();
+        return wander.getAction(actor, map);
+      }
+    }
+    System.out.println(actor.toString() + " say No Partner found in map so keep wander");
     WanderBehaviour wander = new WanderBehaviour();
     return wander.getAction(actor, map);
   }

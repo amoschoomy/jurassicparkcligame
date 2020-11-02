@@ -8,9 +8,9 @@ public class Allosaur extends Actor {
   private int age = 0;
   private int foodLevel; // baby foodLevel start range
   private int starvationLevel = 0;
-  private int waterLevel=0;
-  private int thirstLevel=0;
-  private Player owner;
+  private int waterLevel = 0;
+  private int thirstLevel = 0;
+  private final Player owner;
   private int pregnantPeriodCount = 0;
   /**
    * Constructor. All Allosaur are represented by a 'a' and have 100 hit points.
@@ -33,13 +33,13 @@ public class Allosaur extends Actor {
       this.age = 30;
       this.addCapability(LifeStage.ADULT);
       this.foodLevel = 50;
-      this.waterLevel=50;
+      this.waterLevel = 50;
       this.displayChar = 'A';
     } else if (lifeStage == "baby") {
       // baby stegosaur
       this.addCapability(LifeStage.BABY);
       this.foodLevel = 10;
-      this.waterLevel=10;
+      this.waterLevel = 10;
     } else {
       throw new IllegalArgumentException("life stage only can be adult or baby");
     }
@@ -58,8 +58,8 @@ public class Allosaur extends Actor {
     this.starvationLevel += 1;
   }
 
-  private void Thirsting(){
-    this.thirstLevel+=1;
+  private void Thirsting() {
+    this.thirstLevel += 1;
   }
 
   /**
@@ -75,12 +75,11 @@ public class Allosaur extends Actor {
     }
   }
 
-  private void raiseWaterLevel(int x){
-    if(this.waterLevel+x<=100){
-      this.waterLevel+=x;
-    }
-    else{
-      this.waterLevel=100;
+  private void raiseWaterLevel(int x) {
+    if (this.waterLevel + x <= 100) {
+      this.waterLevel += x;
+    } else {
+      this.waterLevel = 100;
     }
   }
 
@@ -99,14 +98,14 @@ public class Allosaur extends Actor {
    * @param corpse a Corpse object to be eaten by the allosaur
    */
   public void eatCorpse(Corpse corpse) {
-	if(corpse.getSpecies().equals("Agilisaurus")) {
-		raiseFoodLevel(20);
-	}else {
-		raiseFoodLevel(50);
-	}
+    if (corpse.getSpecies().equals("Agilisaurus")) {
+      raiseFoodLevel(20);
+    } else {
+      raiseFoodLevel(50);
+    }
   }
 
-  public void drinkWater(){
+  public void drinkWater() {
     raiseWaterLevel(20);
   }
 
@@ -132,7 +131,8 @@ public class Allosaur extends Actor {
     for (Exit exit : currentPosition.getExits()) {
       Location destination = exit.getDestination();
       if (destination.containsAnActor()) {
-        if (destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Agilisaurus) {
+        if (destination.getActor() instanceof Stegosaur
+            || destination.getActor() instanceof Agilisaurus) {
           closeOpponent++;
         }
       }
@@ -155,7 +155,7 @@ public class Allosaur extends Actor {
       this.foodLevel--;
     }
 
-    if (this.waterLevel>0){
+    if (this.waterLevel > 0) {
       this.waterLevel--;
     }
 
@@ -174,16 +174,15 @@ public class Allosaur extends Actor {
       this.starvationLevel = 0;
     }
 
-    if(this.waterLevel<30){
-      this.behaviour=new ThirstBehaviour();
+    if (this.waterLevel < 30) {
+      this.behaviour = new ThirstBehaviour();
     }
 
-    if(this.waterLevel==0){
+    if (this.waterLevel == 0) {
       this.Thirsting();
-    }else{
-      this.thirstLevel=0;
+    } else {
+      this.thirstLevel = 0;
     }
-
   }
 
   /** This method is used to show if the allosaur is pregnant */
@@ -225,7 +224,8 @@ public class Allosaur extends Actor {
       for (Exit exit : currentPosition.getExits()) {
         Location destination = exit.getDestination();
         if (destination.containsAnActor()) {
-          if ((destination.getActor() instanceof Stegosaur || destination.getActor() instanceof Agilisaurus)
+          if ((destination.getActor() instanceof Stegosaur
+                  || destination.getActor() instanceof Agilisaurus)
               && closeOpponent < 1
               && Math.random() > 0.1) {
             destination.getActor().hurt(50);
@@ -251,23 +251,22 @@ public class Allosaur extends Actor {
         this.removeCapability(LifeStage.ADULT);
         Egg egg = new Egg("Allosaur", true, owner);
         map.locationOf(this).addItem(egg);
-        ;
         pregnantPeriodCount = 0;
       }
     }
 
-    if (this.starvationLevel == 20 || this.hitPoints == 0|this.thirstLevel==20) {
+    if (this.starvationLevel == 20 || this.hitPoints == 0 | this.thirstLevel == 20) {
       this.removeCapability(LiveStatus.LIVE);
       this.addCapability(LiveStatus.DEAD);
       map.locationOf(this).addItem(new Corpse("Allosaur"));
       map.removeActor(this);
     }
-    
-    if(this.foodLevel <=0) {
-    	System.out.println("Allosaur is unwake due to hungry now.");
-    	return new DoNothingAction();
+
+    if (this.foodLevel <= 0) {
+      System.out.println("Allosaur is asleep due to hungry now.");
+      return new DoNothingAction();
     }
-    
+
     Action wander = behaviour.getAction(this, map);
     if (wander != null) {
       return wander;

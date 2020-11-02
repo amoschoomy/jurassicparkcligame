@@ -8,9 +8,9 @@ public class Stegosaur extends Actor {
   private int age = 0;
   private int foodLevel;
   private int starvationLevel = 0;
-  private int waterLevel=0;
-  private int thirstLevel=0;
-  private Player owner;
+  private int waterLevel = 0;
+  private int thirstLevel = 0;
+  private final Player owner;
   private int pregnantPeriodCount = 0;
 
   /**
@@ -33,13 +33,13 @@ public class Stegosaur extends Actor {
       this.addCapability(LifeStage.ADULT);
       this.age = 30;
       this.foodLevel = 60;
-      this.waterLevel=20;
+      this.waterLevel = 20;
       this.displayChar = 'D';
     } else if (lifeStage == "baby") {
       // baby stegosaur
       this.addCapability(LifeStage.BABY);
       this.foodLevel = 10;
-      this.waterLevel=10;
+      this.waterLevel = 10;
     } else {
       throw new IllegalArgumentException("life stage only can be adult or baby");
     }
@@ -57,15 +57,21 @@ public class Stegosaur extends Actor {
   private void Starving() {
     this.starvationLevel += 1;
   }
-  private void Thirsting(){
-    this.thirstLevel+=1;
+  /** This method is used to accumulate how many turns the dinosaur is thirsting */
+  private void Thirsting() {
+    this.thirstLevel += 1;
   }
-  private void raiseWaterLevel(int x){
-    if(this.waterLevel+x<=100){
-      this.waterLevel+=x;
-    }
-    else{
-      this.waterLevel=100;
+
+  /**
+   * Raise water level
+   *
+   * @param x int value of water to be raised
+   */
+  private void raiseWaterLevel(int x) {
+    if (this.waterLevel + x <= 100) {
+      this.waterLevel += x;
+    } else {
+      this.waterLevel = 100;
     }
   }
   /**
@@ -80,7 +86,9 @@ public class Stegosaur extends Actor {
       this.foodLevel = 100;
     }
   }
-  public void drinkWater(){
+
+  /** Drink water */
+  public void drinkWater() {
     raiseWaterLevel(20);
   }
 
@@ -145,7 +153,7 @@ public class Stegosaur extends Actor {
       this.foodLevel--;
     }
 
-    if (this.waterLevel>0){
+    if (this.waterLevel > 0) {
       this.waterLevel--;
     }
 
@@ -163,19 +171,17 @@ public class Stegosaur extends Actor {
       this.starvationLevel = 0;
     }
 
-    if(this.waterLevel<30){
-      this.behaviour=new ThirstBehaviour();
+    if (this.waterLevel < 30) {
+      this.behaviour = new ThirstBehaviour();
     }
 
-    if(this.waterLevel==0){
-      
+    if (this.waterLevel == 0) {
+
       this.Thirsting();
-    }else{
-      this.thirstLevel=0;
+    } else {
+      this.thirstLevel = 0;
     }
-
   }
-
 
   /** This method is used to show if the stegosaur is pregnant */
   private boolean isPregnant() {
@@ -209,24 +215,23 @@ public class Stegosaur extends Actor {
         this.removeCapability(LifeStage.ADULT);
         Egg egg = new Egg("Stegosaur", true, owner);
         map.locationOf(this).addItem(egg);
-        ;
         pregnantPeriodCount = 0;
       }
     }
 
-    if (this.starvationLevel == 20 || this.hitPoints == 0||this.thirstLevel==20) {
+    if (this.starvationLevel == 20 || this.hitPoints == 0 || this.thirstLevel == 20) {
       // stegoosaur die
       this.removeCapability(LiveStatus.LIVE);
       this.addCapability(LiveStatus.DEAD);
       map.locationOf(this).addItem(new Corpse("Stegosaur"));
       map.removeActor(this);
     }
-    
-    if(this.foodLevel <=0) {
-    	System.out.println("Stegosaur is unwake due to hungry now.");
-    	return new DoNothingAction();
+
+    if (this.foodLevel <= 0) {
+      System.out.println("Stegosaur is unwake due to hungry now.");
+      return new DoNothingAction();
     }
-    
+
     Action wander = behaviour.getAction(this, map);
     if (wander != null) {
       return wander;
