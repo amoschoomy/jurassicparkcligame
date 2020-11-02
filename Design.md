@@ -360,6 +360,10 @@ ___
 
 > Created a FeedAction class to allow player to feed adjacent dinosaurs with items in inventory and gain ecopoints.
 
+#New features created in Assignment3 : 
+
+> Added 2 dinosaur classes (Agilisaurus, Archaeopteryx), new behaviour of dinosaur (Thirst behaviour), new ground (water ground) and game mode of game
+
 
 ## Note: 
 
